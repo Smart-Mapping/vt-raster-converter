@@ -1,0 +1,373 @@
+# ---------------------------------------------
+# MapProxy configuration basemap.de Web Raster
+# ---------------------------------------------
+
+services:
+  demo:
+  wmts:
+    md:
+      title: basemap.de Web Raster
+      abstract: basemap.de Web Raster
+
+layers:
+  - name: bm_web_col
+    title: "basemap.de Web Raster Farbe"
+    sources: [bm_web_col_cache]
+    tile_sources: [bm_web_col_cache]
+  - name: bm_web_gry
+    title: "basemap.de Web Raster Gray"
+    sources: [bm_web_gry_cache]
+    tile_sources: [bm_web_gry_cache]
+  - name: bm_web_col_utm32
+    title: "basemap.de Web Raster Farbe UTM32"
+    sources: [bm_web_col_utm32_cache]
+    tile_sources: [bm_web_col_utm32_cache]    
+  - name: bm_web_gry_utm32
+    title: "basemap.de Web Raster Gray UTM32"
+    sources: [bm_web_gry_utm32_cache]
+    tile_sources: [bm_web_gry_utm32_cache]
+  - name: bm_web_col_utm33
+    title: "basemap.de Web Raster Farbe UTM33"
+    sources: [bm_web_col_utm33_cache]
+    tile_sources: [bm_web_col_utm33_cache]
+  - name: bm_web_gry_utm33
+    title: "basemap.de Web Raster Gray UTM33"
+    sources: [bm_web_gry_utm33_cache]
+    tile_sources: [bm_web_gry_utm33_cache]                      
+
+caches:
+  bm_web_col_cache_x8:
+    grids: [EPSG_3857_x8]
+    sources: [bm_web_col_converter_x8]
+    meta_size: [1,1]
+    meta_buffer: 0    
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_web_col
+    image:
+      transparent: true
+
+  bm_web_col_cache:
+    grids: [DE_EPSG_3857_ADV]
+    sources: [bm_web_col_converter, bm_web_col_cache_x8]
+    meta_size: [1,1]
+    meta_buffer: 0    
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_web_col
+    image:
+      transparent: true
+
+  bm_web_gry_cache_x8:
+    grids: [EPSG_3857_x8]
+    sources: [bm_web_gry_converter_x8]
+    meta_size: [1,1]
+    meta_buffer: 0    
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_web_gry
+    image:
+      transparent: true
+
+  bm_web_gry_cache:
+    grids: [DE_EPSG_3857_ADV]
+    sources: [bm_web_gry_converter, bm_web_gry_cache_x8]
+    meta_size: [1,1]
+    meta_buffer: 0    
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_web_gry
+    image:
+      transparent: true
+
+  bm_web_col_utm32_cache_x8:
+    grids: [DE_EPSG_25832_ADV_x8]
+    sources: [bm_web_col_utm32_converter_x8]
+    meta_size: [1,1]
+    meta_buffer: 0
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_web_col
+    image:
+      transparent: true
+
+  bm_web_col_utm32_cache:
+    grids: [DE_EPSG_25832_ADV]
+    sources: [bm_web_col_utm32_converter, bm_web_col_utm32_cache_x8]
+    meta_size: [1,1]
+    meta_buffer: 0
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_web_col
+    image:
+      transparent: true    
+
+  # UTM32 gray eightfold size
+  bm_web_gry_utm32_cache_x8:
+    grids: [DE_EPSG_25832_ADV_x8]
+    sources: [bm_web_gry_utm32_converter_x8]
+    meta_size: [1,1]
+    meta_buffer: 0
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_web_gry
+    image:
+      transparent: true
+
+  bm_web_gry_utm32_cache:
+    grids: [DE_EPSG_25832_ADV]
+    sources: [bm_web_gry_utm32_converter, bm_web_gry_utm32_cache_x8]
+    meta_size: [1,1]
+    meta_buffer: 0    
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_web_gry
+    image:
+      transparent: true
+
+  bm_web_col_utm33_cache_x8:
+    grids: [DE_EPSG_25833_ADV_x8]
+    sources: [bm_web_col_utm33_converter_x8]
+    meta_size: [1,1]
+    meta_buffer: 0    
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_web_col
+    image:
+      transparent: true
+
+  bm_web_col_utm33_cache:
+    grids: [DE_EPSG_25833_ADV]
+    sources: [bm_web_col_utm33_converter, bm_web_col_utm33_cache_x8]
+    meta_size: [1,1]
+    meta_buffer: 0    
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_web_col
+    image:
+      transparent: true
+
+  bm_web_gry_utm33_cache_x8:
+    grids: [DE_EPSG_25833_ADV_x8]
+    sources: [bm_web_gry_utm33_converter_x8]
+    meta_size: [1,1]
+    meta_buffer: 0      
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_web_gry
+    image:
+      transparent: true 
+
+  bm_web_gry_utm33_cache:
+    grids: [DE_EPSG_25833_ADV]
+    sources: [bm_web_gry_utm33_converter, bm_web_gry_utm33_cache_x8]
+    meta_size: [1,1]
+    meta_buffer: 0      
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_web_gry
+    image:
+      transparent: true        
+
+sources:
+  bm_web_col_converter:
+    type: tile
+    grid: EPSG_3857
+    url: http://converter:8081/tiles/bm_web_col/%(z)s/%(x)s/%(y)s
+    min_res: 156543.03392804097
+    max_res: 1222.99245256282       
+  
+  bm_web_col_converter_x8:
+    type: tile
+    grid: EPSG_3857_x8
+    url: http://converter:8081/tiles/bm_web_col/%(z)s/%(x)s/%(y)s?tile_size=2048
+    min_res: 1222.99245256282    
+
+  bm_web_gry_converter:
+    type: tile
+    grid: EPSG_3857
+    url: http://converter:8081/tiles/bm_web_gry/%(z)s/%(x)s/%(y)s
+    min_res: 156543.03392804097
+    max_res: 1222.99245256282    
+  
+  bm_web_gry_converter_x8:
+    type: tile
+    grid: EPSG_3857_x8
+    url: http://converter:8081/tiles/bm_web_gry/%(z)s/%(x)s/%(y)s?tile_size=2048
+    min_res: 1222.99245256282
+
+  bm_web_col_utm32_converter:
+    type: tile
+    grid: DE_EPSG_25832_ADV
+    url: http://converter:8081/tiles/bm_web_col_utm32/%(z)s/%(x)s/%(y)s
+    min_res: 4891.96981025128
+    max_res: 38.2185141425881
+  
+  bm_web_col_utm32_converter_x8:
+    type: tile
+    grid: DE_EPSG_25832_ADV_x8
+    url: http://converter:8081/tiles/bm_web_col_utm32/%(z)s/%(x)s/%(y)s?tile_size=2048
+    min_res: 38.2185141425881
+
+  bm_web_gry_utm32_converter:
+    type: tile
+    grid: DE_EPSG_25832_ADV
+    url: http://converter:8081/tiles/bm_web_gry_utm32/%(z)s/%(x)s/%(y)s
+    min_res: 4891.96981025128
+    max_res: 38.2185141425881    
+
+  bm_web_gry_utm32_converter_x8:
+    type: tile
+    grid: DE_EPSG_25832_ADV_x8
+    url: http://converter:8081/tiles/bm_web_gry_utm32/%(z)s/%(x)s/%(y)s?tile_size=2048  
+    min_res: 38.2185141425881    
+
+  bm_web_col_utm33_converter:
+    type: tile
+    grid: DE_EPSG_25833_ADV
+    url: http://converter:8081/tiles/bm_web_col_utm33/%(z)s/%(x)s/%(y)s
+    min_res: 4891.96981025128
+    max_res: 38.2185141425881 
+  
+  bm_web_col_utm33_converter_x8:
+    type: tile
+    grid: DE_EPSG_25833_ADV_x8
+    url: http://converter:8081/tiles/bm_web_col_utm33/%(z)s/%(x)s/%(y)s?tile_size=2048 
+    min_res: 38.2185141425881      
+
+  bm_web_gry_utm33_converter:
+    type: tile
+    grid: DE_EPSG_25833_ADV
+    url: http://converter:8081/tiles/bm_web_gry_utm33/%(z)s/%(x)s/%(y)s
+    min_res: 4891.96981025128
+    max_res: 38.2185141425881 
+  
+  bm_web_gry_utm33_converter_x8:
+    type: tile
+    grid: DE_EPSG_25833_ADV_x8
+    url: http://converter:8081/tiles/bm_web_gry_utm33/%(z)s/%(x)s/%(y)s?tile_size=2048  
+    min_res: 38.2185141425881      
+
+grids:
+  EPSG_3857:
+    srs: "EPSG:3857"
+    tile_size: [256, 256]    
+    res: [156543.03392804097,
+          78271.51696402048,
+          39135.75848201024,
+          19567.87924100512,
+          9783.93962050256, 
+          4891.96981025128, 
+          2445.98490512564, 
+          1222.99245256282, 
+          611.49622628141, 
+          305.748113140705, 
+          152.874056570353, 
+          76.4370282851763, 
+          38.2185141425881, 
+          19.1092570712941, 
+          9.55462853564703, 
+          4.77731426782352, 
+          2.38865713391176, 
+          1.19432856695588,
+          0.597164283477939]
+    bbox: [-20037508.34278920, -20037508.34278920, 20037508.34278920, 20037508.34278920]
+    bbox_srs: 'EPSG:3857'
+    origin: 'ul'
+
+  # Grid for basemap.de Web Raster
+  DE_EPSG_3857_ADV:
+    srs: 'EPSG:3857'
+    tile_size: [256, 256]
+    res: [4891.96981025128, 
+          2445.98490512564, 
+          1222.99245256282, 
+          611.49622628141, 
+          305.748113140705, 
+          152.874056570353, 
+          76.4370282851763, 
+          38.2185141425881, 
+          19.1092570712941, 
+          9.55462853564703, 
+          4.77731426782352, 
+          2.38865713391176, 
+          1.19432856695588,
+          0.597164283477939]
+    bbox: [-20037508.34278920, -20037508.34278920, 20037508.34278920, 20037508.34278920]
+    bbox_srs: 'EPSG:3857'
+    origin: 'ul'
+
+  # Grid for basemap.de Web Raster
+  DE_EPSG_25832_ADV:
+    srs: 'EPSG:25832'
+    tile_size: [256, 256]
+    res: [4891.96981025128, 
+          2445.98490512564, 
+          1222.99245256282, 
+          611.49622628141, 
+          305.748113140705, 
+          152.874056570353, 
+          76.4370282851763, 
+          38.2185141425881, 
+          19.1092570712941, 
+          9.55462853564703, 
+          4.77731426782352, 
+          2.38865713391176, 
+          1.19432856695588, 
+          0.597164283477939]          
+    bbox: [-46133.17, 5048875.268575673, 1206211.101424327, 6301219.54]
+    bbox_srs: 'EPSG:25832'
+    origin: 'ul'
+
+  # Grid for basemap.de Web Raster
+  DE_EPSG_25833_ADV:
+    srs: 'EPSG:25833'
+    tile_size: [256, 256]
+    res: [4891.96981025128, 
+          2445.98490512564, 
+          1222.99245256282, 
+          611.49622628141, 
+          305.748113140705, 
+          152.874056570353, 
+          76.4370282851763, 
+          38.2185141425881, 
+          19.1092570712941, 
+          9.55462853564703, 
+          4.77731426782352, 
+          2.38865713391176, 
+          1.19432856695588, 
+          0.597164283477939]      
+    bbox: [-464849.38000000, 5057815.86857567, 787494.89142433, 6310160.14000000]
+    bbox_srs: 'EPSG:25833'
+    origin: 'ul'    
+
+  EPSG_3857_x8:
+    base: EPSG_3857
+    tile_size: [2048, 2048]  
+
+  DE_EPSG_25832_ADV_x8:
+    base: DE_EPSG_25832_ADV
+    tile_size: [2048, 2048]
+
+  DE_EPSG_25833_ADV_x8:
+    base: DE_EPSG_25833_ADV
+    tile_size: [2048, 2048]
+
+globals:
+  image:
+    resampling_method: bicubic
+    stretch_factor: 1.5
+    max_shrink_factor: 4.0
+    paletted: false

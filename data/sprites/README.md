@@ -1,0 +1,1 @@
+Put the sprite files in this folder. 

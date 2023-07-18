@@ -1,0 +1,82 @@
+# ------------------------------------------------
+# Test seeding configuration for basemap.de Web Raster
+# ------------------------------------------------
+
+seeds:
+  bm_web_col_3857_x8:
+    caches: [bm_web_col_cache_x8]
+    coverages: [test_area]
+    levels:
+      from: 12
+      to: 18
+  bm_web_col_3857:
+    caches: [bm_web_col_cache]
+    coverages: [test_area]
+    levels:
+      from: 0
+      to: 13
+  bm_web_col_25832_x8:
+    caches: [bm_web_col_utm32_cache_x8]
+    coverages: [test_area]
+    levels:
+      from: 7
+      to: 13        
+  bm_web_col_25832:
+    caches: [bm_web_col_utm32_cache]
+    coverages: [test_area]
+    levels:
+      from: 0
+      to: 13     
+  bm_web_col_25833_x8:
+    caches: [bm_web_col_utm33_cache_x8]
+    coverages: [test_area]
+    levels:
+      from: 7
+      to: 13        
+  bm_web_col_25833:
+    caches: [bm_web_col_utm33_cache]
+    coverages: [test_area]
+    levels:
+      from: 0
+      to: 13
+
+  bm_web_gry_3857_x8:
+    caches: [bm_web_gry_cache_x8]
+    coverages: [test_area]
+    levels:
+      from: 12
+      to: 18
+  bm_web_gry_3857:
+    caches: [bm_web_gry_cache]
+    coverages: [test_area]
+    levels:
+      from: 0
+      to: 13
+  bm_web_gry_25832_x8:
+    caches: [bm_web_gry_utm32_cache_x8]
+    coverages: [test_area]
+    levels:
+      from: 7
+      to: 13  
+  bm_web_gry_25832:
+    caches: [bm_web_gry_utm32_cache]
+    coverages: [test_area]
+    levels:
+      from: 0
+      to: 13
+  bm_web_gry_25833_x8:
+    caches: [bm_web_gry_utm33_cache_x8]
+    coverages: [test_area]
+    levels:
+      from: 7
+      to: 13        
+  bm_web_gry_25833:
+    caches: [bm_web_gry_utm33_cache]
+    coverages: [test_area]
+    levels:
+      from: 0
+      to: 13
+coverages:
+  test_area:
+    bbox: [9.668641,52.326652,9.809363,52.407013]
+    srs: 'EPSG:4326'   

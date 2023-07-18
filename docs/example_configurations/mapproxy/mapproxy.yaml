@@ -1,0 +1,30 @@
+# ---------------------------------------------
+# MapProxy example configuration for VT Raster Converter
+# ---------------------------------------------
+
+services:
+  demo:
+  wms:
+    md:
+      title: VT Raster Converter example
+
+layers:
+  - name: example-layer
+    title: "VT Raster Converter exampl"
+    sources: [example-cache]                   
+
+caches:
+  example-cache:
+    grids: [GLOBAL_WEBMERCATOR]
+    sources: [vt-raster-converter]   
+    disable_storage: true
+    image:
+      transparent: true
+
+sources:
+  vt-raster-converter:
+    type: tile
+    grid: GLOBAL_WEBMERCATOR
+    url: http://converter:8081/tiles/example-style/%(z)s/%(x)s/%(y)s     
+
+

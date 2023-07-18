@@ -1,0 +1,25 @@
+{
+    "server": {
+        "port": 8081
+    }, 
+    "styles": {
+        "bm_web_col": {
+            "file": "bm_web_col.json"
+        },
+        "bm_web_gry": {
+            "file": "bm_web_gry.json"
+        },
+        "bm_web_col_utm32": {
+            "file": "bm_web_col_utm32.json"
+        },
+        "bm_web_gry_utm32": {
+            "file": "bm_web_gry_utm32.json"
+        },
+        "bm_web_col_utm33": {
+            "file": "bm_web_col_utm33.json"
+        },
+        "bm_web_gry_utm33": {
+            "file": "bm_web_gry_utm33.json"
+        }
+    }
+}

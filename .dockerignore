@@ -1,0 +1,5 @@
+data
+node_modules
+coverage
+logs
+mapproxy/cache_data

@@ -1,0 +1,88 @@
+# ------------------------------------------------
+# Seeding configuration for basemap.de Web Raster
+# ------------------------------------------------
+
+seeds:
+  bm_web_col_3857_x8:
+    caches: [bm_web_col_cache_x8]
+    coverages: [de_webmercator]
+    levels:
+      from: 12
+      to: 18
+  bm_web_col_3857:
+    caches: [bm_web_col_cache]
+    coverages: [de_webmercator]
+    levels:
+      from: 0
+      to: 13
+  bm_web_col_25832_x8:
+    caches: [bm_web_col_utm32_cache_x8]
+    coverages: [de_utm32]
+    levels:
+      from: 7
+      to: 13        
+  bm_web_col_25832:
+    caches: [bm_web_col_utm32_cache]
+    coverages: [de_utm32]
+    levels:
+      from: 0
+      to: 13     
+  bm_web_col_25833_x8:
+    caches: [bm_web_col_utm33_cache_x8]
+    coverages: [de_utm33]
+    levels:
+      from: 7
+      to: 13        
+  bm_web_col_25833:
+    caches: [bm_web_col_utm33_cache]
+    coverages: [de_utm33]
+    levels:
+      from: 0
+      to: 13
+
+  bm_web_gry_3857_x8:
+    caches: [bm_web_gry_cache_x8]
+    coverages: [de_webmercator]
+    levels:
+      from: 12
+      to: 18
+  bm_web_gry_3857:
+    caches: [bm_web_gry_cache]
+    coverages: [de_webmercator]
+    levels:
+      from: 0
+      to: 13
+  bm_web_gry_25832_x8:
+    caches: [bm_web_gry_utm32_cache_x8]
+    coverages: [de_utm32]
+    levels:
+      from: 7
+      to: 13  
+  bm_web_gry_25832:
+    caches: [bm_web_gry_utm32_cache]
+    coverages: [de_utm32]
+    levels:
+      from: 0
+      to: 13
+  bm_web_gry_25833_x8:
+    caches: [bm_web_gry_utm33_cache_x8]
+    coverages: [de_utm33]
+    levels:
+      from: 7
+      to: 13        
+  bm_web_gry_25833:
+    caches: [bm_web_gry_utm33_cache]
+    coverages: [de_utm33]
+    levels:
+      from: 0
+      to: 13
+coverages:
+  de_utm32:
+    bbox: [-46133.17000000, 5048875.26857567, 1206211.10142433, 6301219.54000000]
+    srs: 'EPSG:25832'
+  de_utm33:
+    bbox: [-464849.38000000, 5057815.86857567, 787494.89142433, 6310160.14000000]
+    srs: 'EPSG:25833'
+  de_webmercator:
+    bbox: [5.6, 47.2, 15.1, 55.15]
+    srs: 'EPSG:4326'     

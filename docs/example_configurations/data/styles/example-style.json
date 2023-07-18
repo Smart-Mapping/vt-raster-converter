@@ -1,0 +1,44 @@
+{
+    "name": "VT Raster Converter example style",
+    "sources": {
+        "world": {
+            "type": "vector",
+            "url": "mbtiles://world"
+        }
+    },
+    "glyphs": "{fontstack}/{range}.pbf",
+    "sprite": "example-sprite",
+    "layers": [
+        {
+            "id": "water",
+            "paint": {
+                "background-pattern": "hatching_blue"
+            },
+            "type": "background"
+        },
+        {
+            "id": "land",
+            "source": "world",
+            "source-layer": "world",
+            "type": "fill",
+            "paint": {
+                "fill-color": "#229214"
+            }
+        },
+        {
+            "id": "label",
+            "source": "world",
+            "source-layer": "world",
+            "type": "symbol",
+            "paint": {
+                "text-color": "#333333"
+            },
+            "layout": {
+                "symbol-placement": "point",
+                "text-field": "{id}",
+                "text-font": ["Noto Sans Regular"],
+                "text-size": 20
+              }
+            }
+    ]
+}

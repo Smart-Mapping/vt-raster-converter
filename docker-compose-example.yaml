@@ -1,0 +1,23 @@
+version: '3'
+services:
+  mapproxy:
+    build: ./mapproxy
+    image: basemapde/mapproxy
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./mapproxy/cache_data:/mapproxy/cache_data
+      - ./docs/example_configurations/mapproxy/:/mapproxy/config
+  converter:
+    build: .
+    image: basemapde/vt-raster-converter
+    ports:
+      - "8081:8081"
+    environment:
+      - LOG_LEVEL=error # debug, info, warning, error
+      - LOG_FILE=/app/logs/vt-raster-converter.log
+      - DATA_PATH=/app/data
+      - NODE_MEMORY_LIMIT=8000
+    volumes: 
+      - ./docs/example_configurations/data:/app/data
+      - ./docs/example_configurations/config:/app/src/config

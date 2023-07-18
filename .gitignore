@@ -1,0 +1,23 @@
+# compiled output
+/dist
+
+# dependencies
+/node_modules
+
+# data
+/coverage
+/data/fonts/*
+/data/sprites/*
+/data/styles/*
+/data/tiles/*
+!/data/**/README.md
+/mapproxy/cache_data/
+
+# log files
+/logs
+
+# system files
+.DS_Store
+Thumbs.db
+
+.github
