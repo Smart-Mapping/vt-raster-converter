@@ -1,4 +1,9 @@
-## 1.2.2 (2023-07-18)
+## v1.2.3 (2023-07-19)
+
+### Bug fixes
+* Fix pyproj installation error in MapProxy Dockerfile.
+
+## v1.2.2 (2023-07-18)
 
 * Open source release
 * Add documentation
