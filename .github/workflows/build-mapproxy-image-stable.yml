@@ -10,8 +10,6 @@ on:
       - '!seed.sh'
       - '!.github/workflows/*release.yml'
       - '!.github/workflows/*latest.yml'    
-  schedule:
-    - cron: '0 23 * * 6'
 
 env: 
   TAG: stable
