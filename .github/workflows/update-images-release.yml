@@ -9,6 +9,7 @@ on:
   schedule:
     - cron: '0 23 * * 6'
 
+with
 
 jobs:    
   build-images:
@@ -23,10 +24,10 @@ jobs:
         include: 
           - app: mapproxy
             context: mapproxy
-            image: ${{ secrets.IMAGE_NAME_MAPPROXY }}
+            image: IMAGE_NAME_MAPPROXY
           - app: vt-raster-converter
             context: .
-            image: ${{ secrets.IMAGE_NAME_CONVERTER }}
+            image: IMAGE_NAME_CONVERTER
           - major-tag: 1.2
             minor-tag: 1.2.3            
           - major-tag: 1.2.3
@@ -45,11 +46,11 @@ jobs:
           git checkout tags/${{ matrix.minor-tag }} -b ${{ matrix.minor-tag }}      
       - name: Build an image from Dockerfile
         run: |
-          docker build -t ${{ matrix.image }}:${{ matrix.major-tag }} ${{ matrix.context }}
+          docker build -t ${{ secrets[matrix.image] }}:${{ matrix.major-tag }} ${{ matrix.context }}
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: '${{ matrix.image }}:${{ matrix.major-tag }}'
+          image-ref: '${{ secrets[matrix.image] }}:${{ matrix.major-tag }}'
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
@@ -63,10 +64,10 @@ jobs:
           password: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
       - name: Push image
         run: |
-          docker push ${{ matrix.image }}:${{ matrix.major-tag }}
+          docker push ${{ secrets[matrix.image] }}:${{ matrix.major-tag }}
       - name: Sign image with a key
         run: |
-          IMAGE_SHA=$(docker inspect --format='{{index .RepoDigests 0}}' ${{ matrix.image }}:${{ matrix.major-tag }})
+          IMAGE_SHA=$(docker inspect --format='{{index .RepoDigests 0}}' ${{ secrets[matrix.image] }}:${{ matrix.major-tag }})
           cosign sign --key env://COSIGN_PRIVATE_KEY $IMAGE_SHA
         env:
           COSIGN_PRIVATE_KEY: ${{secrets.COSIGN_PRIVATE_KEY}}
