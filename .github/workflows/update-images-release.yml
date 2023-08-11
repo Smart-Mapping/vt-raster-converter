@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         major-tag: [1.2, 1.2.3, stable]
-        image: [${{ secrets.IMAGE_NAME_CONVERTER }}, ${{ secrets.IMAGE_NAME_MAPPROXY }}]
+        image: ['${{ secrets.IMAGE_NAME_CONVERTER }}', '${{ secrets.IMAGE_NAME_MAPPROXY }}']
         include: 
           - image: ${{ secrets.IMAGE_NAME_MAPPROXY }}
             context: mapproxy
