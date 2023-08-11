@@ -12,19 +12,21 @@ on:
 
 jobs:    
   build-images:
-    name: Update docker image ${{ matrix.image }}:${{ matrix.major-tag }}
+    name: Update docker image ${{ matrix.app }}:${{ matrix.major-tag }}
     runs-on: ubuntu-latest
     continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
         major-tag: [1.2, 1.2.3, stable]
-        image: ['${{ secrets.IMAGE_NAME_CONVERTER }}', '${{ secrets.IMAGE_NAME_MAPPROXY }}']
+        app: [vt-raster-converter, mapproxy]
         include: 
-          - image: ${{ secrets.IMAGE_NAME_MAPPROXY }}
+          - app: mapproxy
             context: mapproxy
-          - image: ${{ secrets.IMAGE_NAME_CONVERTER }}
+            image: ${{ secrets.IMAGE_NAME_MAPPROXY }}
+          - app: vt-raster-converter
             context: .
+            image: ${{ secrets.IMAGE_NAME_CONVERTER }}
           - major-tag: 1.2
             minor-tag: 1.2.3            
           - major-tag: 1.2.3
