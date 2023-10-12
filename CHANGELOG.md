@@ -1,3 +1,8 @@
+## v1.2.4 (2023-10-12)
+
+### Bug fixes
+* Remove gcc from MapProxy Dockerfile to avoid vulnerabilities.
+
 ## v1.2.3 (2023-07-19)
 
 ### Bug fixes

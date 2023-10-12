@@ -1,13 +1,14 @@
 FROM python:3.11-alpine
 
 RUN apk update && apk add gcc proj proj-dev proj-util musl-dev git
+
 RUN python3 -m pip install --upgrade pip setuptools wheel
 
 RUN pip install Pillow PyYAML git+https://github.com/pyproj4/pyproj.git six MapProxy==1.16.0
 
 RUN python -m pip uninstall -y pip
 
-RUN apk del git && apk upgrade
+RUN apk del git gcc && apk upgrade
 
 RUN addgroup -g 1099 mapproxy \
     && adduser -s /bin/bash -u 1099 -D -G mapproxy mapproxy
