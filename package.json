@@ -1,6 +1,6 @@
 {
   "name": "vt-raster-converter",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Convert vector tiles to raster tiles",
   "directories": {
     "test": "tests"

@@ -1,3 +1,8 @@
+## v1.2.5 (2023-10-25)
+
+### Bug fixes
+* Library updates
+
 ## v1.2.4 (2023-10-12)
 
 ### Bug fixes
