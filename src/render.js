@@ -325,7 +325,7 @@ const renderImage = async (style, center, zoom, width, height, bufferWidth, buff
 
     const map = new mbgl.Map({
         request: requestHandler(dataPath),
-        ratio,
+        ratio
     });
     logger.debug('Load map with style: ' + config.styles[style].file);
     map.load(require(path.join(dataPath, '/styles', config.styles[style].file)));
