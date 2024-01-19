@@ -1,12 +1,12 @@
+## v1.3.1 (2024-01-19)
+
+### Bug fixes
+* Fix installation of Node.js in Dockerfile.
+
 ## v1.3.0 (2023-11-23)
 
 ### Changes
 * Rename style files
-
-## v1.2.6 (2023-10-26)
-
-### Bug fixes
-* Remove gnupg from converter Dockerfile to avoid vulnerabilities.
 
 ## v1.2.6 (2023-10-26)
 

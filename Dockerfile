@@ -20,11 +20,9 @@ RUN apt-get install -y \
     xvfb \
     libicu66
 
-RUN curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh \
-    && sh nodesource_setup.sh \
-    && apt install nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs  
 
-RUN apt-get remove -y curl krb5-locales libpython3.8-stdlib gnupg && apt-get autoremove -y
+RUN apt-get remove -y curl krb5-locales gnupg && apt-get autoremove -y
 
 COPY ./package-lock.json /app/package-lock.json
 COPY ./package.json /app/package.json
