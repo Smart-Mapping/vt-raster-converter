@@ -6,9 +6,14 @@ const sharp = require('sharp');
 const zlib = require('zlib');
 const mbgl = require('@maplibre/maplibre-gl-native');
 const MBTiles = require('@mapbox/mbtiles');
+const webRequest = require('request');
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
 
 const logger = require('./logger');
 const config = require('./config/config.json');
+
+const isMBTilesURL = (url) => url.startsWith('mbtiles://')
 
 /**
  * Splits out mbtiles name from the URL
@@ -135,6 +140,86 @@ const getLocalAsset = (url, callback) => {
 };
 
 /**
+ * Fetch a remotely hosted tile.
+ * Empty or missing tiles return null data to the callback function, which
+ * result in those tiles not rendering but no errors being raised.
+ *
+ * @param {String} url - URL of the tile
+ * @param {function} callback - callback to call with (err, {data})
+ */
+const getRemoteTile = (url, callback) => {
+    webRequest(
+        {
+            url,
+            encoding: null,
+            gzip: true,
+        },
+        (err, res, data) => {
+            if (err) {
+                return callback(err)
+            }
+
+            switch (res.statusCode) {
+                case 200: {
+                    return callback(null, { data })
+                }
+                case 204: {
+                    // No data for this url
+                    return callback(null, {})
+                }
+                case 404: {
+                    // Tile not found
+                    // this may be valid for some tilesets that have partial coverage
+                    // on servers that do not return blank tiles in these areas.
+                    logger.warn(`Missing tile at: ${url}`)
+                    return callback(null, {})
+                }
+                default: {
+                    // assume error
+                    const msg = `request for remote tile failed: ${url} (status: ${res.statusCode})`
+                    logger.error(msg)
+                    return callback(new Error(msg))
+                }
+            }
+        }
+    )
+}
+
+/**
+ * Fetch a remotely hosted asset: glyph, sprite, etc
+ * Anything other than a HTTP 200 response results in an exception.
+ *
+ *
+ * @param {String} url - URL of the asset
+ * @param {function} callback - callback to call with (err, {data})
+ */
+const getRemoteAsset = (url, callback) => {
+    webRequest(
+        {
+            url,
+            encoding: null,
+            gzip: true,
+        },
+        (err, res, data) => {
+            if (err) {
+                return callback(err)
+            }
+
+            switch (res.statusCode) {
+                case 200: {
+                    return callback(null, { data })
+                }
+                default: {
+                    const msg = `request for remote asset failed: ${res.request.uri.href} (status: ${res.statusCode})`
+                    logger.error(msg)
+                    return callback(new Error(msg))
+                }
+            }
+        }
+    )
+}
+
+/**
  * Constructs a request handler for the map to load resources.
  * @param {*} tilePath - path containing mbtiles files
  * @returns requestHandler object
@@ -146,36 +231,55 @@ const requestHandler =
             try {
                 switch (kind) {
                     case 1: {
-                        // style
                         break;
                     }
                     case 2: {
                         // source
-                        getLocalTileJSON(path.join(dataPath + '/tiles'), url, callback);
+                        if (isMBTilesURL(url)) {
+                            getLocalTileJSON(path.join(dataPath + '/tiles'), url, callback);
+                        } else {
+                            getRemoteAsset(url, callback)
+                        }
                         break;
                     }
                     case 3: {
                         // tile
-                        getLocalTile(path.join(dataPath + '/tiles'), url, callback);
+                        if (isMBTilesURL(url)) {
+                            getLocalTile(path.join(dataPath + '/tiles'), url, callback);
+                        } else {
+                            getRemoteTile(url, callback)
+                        }
                         break;
                     }
                     case 4: {
                         // glyph
-                        let rUrl = path.join(dataPath, '/fonts', url);
-                        rUrl = rUrl.replace(/%20/g, ' ');
-                        getLocalAsset(rUrl, callback);
+                        if (url.search(/http/) == 0) {
+                            getRemoteAsset(url, callback);
+                        } else {
+                            let rUrl = path.join(dataPath, '/fonts', url);
+                            rUrl = rUrl.replace(/%20/g, ' ');
+                            getLocalAsset(rUrl, callback);
+                        }
                         break;
                     }
                     case 5: {
                         // sprite image
-                        const rUrl = path.join(dataPath, '/sprites', url);
-                        getLocalAsset(rUrl, callback);
+                        if (url.search(/http/) == 0) {
+                            getRemoteAsset(url, callback);
+                        } else {
+                            const rUrl = path.join(dataPath, '/sprites', url);
+                            getLocalAsset(rUrl, callback);
+                        }
                         break;
                     }
                     case 6: {
                         // sprite json
-                        const rUrl = path.join(dataPath, '/sprites', url);
-                        getLocalAsset(rUrl, callback);
+                        if (url.search(/http/) == 0) {
+                            getRemoteAsset(url, callback);
+                        } else {
+                            const rUrl = path.join(dataPath, '/sprites', url);
+                            getLocalAsset(rUrl, callback);
+                        }
                         break;
                     }
                     case 7: {
@@ -325,10 +429,21 @@ const renderImage = async (style, center, zoom, width, height, bufferWidth, buff
 
     const map = new mbgl.Map({
         request: requestHandler(dataPath),
-        ratio
+        ratio,
     });
     logger.debug('Load map with style: ' + config.styles[style].file);
-    map.load(require(path.join(dataPath, '/styles', config.styles[style].file)));
+    if (config.styles[style].file.search(/http/) == 0) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            map.load(this.responseText);
+            }
+        };
+        xhttp.open("GET", config.styles[style].file, false);
+        xhttp.send();
+    } else {
+        map.load(require(path.join(dataPath, '/styles', config.styles[style].file)));
+    }
 
 
     const imgBuffer = await renderMap(map, {
