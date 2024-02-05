@@ -1,0 +1,46 @@
+# ------------------------------------------------
+# Seeding configuration for basemap.de P10
+# ------------------------------------------------
+
+seeds:
+  bm_p10_col_25832:
+    caches: [bm_p10_col_utm32_cache]
+    # grids: []
+    coverages: [de_utm32]
+    levels:
+      from: 11
+      to: 11            
+  bm_p10_col_25833:
+    caches: [bm_p10_col_utm33_cache]
+    # grids: []
+    coverages: [de_utm33]
+    levels:
+      from: 11
+      to: 11
+
+  bm_p10_gry_25832:
+    caches: [bm_p10_gry_utm32_cache]
+    # grids: []
+    coverages: [de_utm32]
+    levels:
+      from: 11
+      to: 11      
+  bm_p10_gry_25833:
+    caches: [bm_p10_gry_utm33_cache]
+    # grids: []
+    coverages: [de_utm33]
+    levels:
+      from: 11
+      to: 11
+coverages:
+  de_utm32:
+    #bbox: [-46133.17000000, 5048875.26857567, 1206211.10142433, 6301219.54000000]
+    bbox: [270000, 5230000, 930000, 6120000]
+    srs: 'EPSG:25832'
+  de_utm33:
+    #bbox: [-464849.38000000, 5057815.86857567, 787494.89142433, 6310160.14000000]
+    bbox: [112272, 5545214, 787494.89142433, 6310160.14000000]
+    srs: 'EPSG:25833'
+  de_webmercator:
+    bbox: [5.6, 47.2, 15.1, 55.15]
+    srs: 'EPSG:4326'     

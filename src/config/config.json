@@ -20,6 +20,18 @@
         },
         "bm_web_gry_utm33": {
             "file": "bm_web_gry_ras_utm33.json"
+        },
+        "bm_p10_col_utm32": {
+            "file": "bm_print_col_ras_utm32.json"
+        },
+        "bm_p10_col_utm33": {
+            "file": "bm_print_col_ras_utm33.json"
+        },
+        "bm_p10_gry_utm32": {
+            "file": "bm_print_gry_ras_utm32.json"
+        },
+        "bm_p10_gry_utm33": {
+            "file": "bm_print_gry_ras_utm33.json"
         }
     }
 }
