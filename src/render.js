@@ -6,9 +6,7 @@ const sharp = require('sharp');
 const zlib = require('zlib');
 const mbgl = require('@maplibre/maplibre-gl-native');
 const MBTiles = require('@mapbox/mbtiles');
-const webRequest = require('request');
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-
+const axios = require('axios');
 
 const logger = require('./logger');
 const config = require('./config/config.json');
@@ -147,42 +145,39 @@ const getLocalAsset = (url, callback) => {
  * @param {String} url - URL of the tile
  * @param {function} callback - callback to call with (err, {data})
  */
-const getRemoteTile = (url, callback) => {
-    webRequest(
-        {
-            url,
-            encoding: null,
-            gzip: true,
-        },
-        (err, res, data) => {
-            if (err) {
-                return callback(err)
+const getRemoteTile = async (url, callback) => {
+    await axios({
+        method: 'get',
+        url: url,
+        responseType: 'arraybuffer'
+    }).then(function (response) {
+        switch (response.status) {
+            case 200: {
+                let data = response.data;
+                return callback(null, { data })
             }
-
-            switch (res.statusCode) {
-                case 200: {
-                    return callback(null, { data })
-                }
-                case 204: {
-                    // No data for this url
-                    return callback(null, {})
-                }
-                case 404: {
-                    // Tile not found
-                    // this may be valid for some tilesets that have partial coverage
-                    // on servers that do not return blank tiles in these areas.
-                    logger.warn(`Missing tile at: ${url}`)
-                    return callback(null, {})
-                }
-                default: {
-                    // assume error
-                    const msg = `request for remote tile failed: ${url} (status: ${res.statusCode})`
-                    logger.error(msg)
-                    return callback(new Error(msg))
-                }
+            case 204: {
+                // No data for this url
+                return callback(null, {})
+            }
+            case 404: {
+                // Tile not found
+                // this may be valid for some tilesets that have partial coverage
+                // on servers that do not return blank tiles in these areas.
+                logger.warn(`Missing tile at: ${url}`)
+                return callback(null, {})
+            }
+            default: {
+                // assume error
+                const msg = `request for remote tile failed: ${url} (status: ${res.statusCode})`
+                logger.error(msg)
+                return callback(new Error(msg))
             }
         }
-    )
+    }).catch(function (err) {
+        logger.error(err)
+        return callback(err);
+    });
 }
 
 /**
@@ -193,30 +188,28 @@ const getRemoteTile = (url, callback) => {
  * @param {String} url - URL of the asset
  * @param {function} callback - callback to call with (err, {data})
  */
-const getRemoteAsset = (url, callback) => {
-    webRequest(
-        {
-            url,
-            encoding: null,
-            gzip: true,
-        },
-        (err, res, data) => {
-            if (err) {
-                return callback(err)
+const getRemoteAsset = async (url, callback) => {
+    await axios({
+        method: 'get',
+        url: url,
+        responseType: 'arraybuffer'
+    }).then(function (response) {
+        switch (response.status) {
+            case 200: {
+                let data = response.data;
+                return callback(null, { data })
             }
-
-            switch (res.statusCode) {
-                case 200: {
-                    return callback(null, { data })
-                }
-                default: {
-                    const msg = `request for remote asset failed: ${res.request.uri.href} (status: ${res.statusCode})`
-                    logger.error(msg)
-                    return callback(new Error(msg))
-                }
+            default: {
+                // assume error
+                const msg = `request for remote tile failed: ${url} (status: ${res.statusCode})`
+                logger.error(msg)
+                return callback(new Error(msg))
             }
         }
-    )
+    }).catch(function (err) {
+        return callback(err);
+    });
+    return null
 }
 
 /**
@@ -431,20 +424,9 @@ const renderImage = async (style, center, zoom, width, height, bufferWidth, buff
         request: requestHandler(dataPath),
         ratio,
     });
-    logger.debug('Load map with style: ' + config.styles[style].file);
-    if (config.styles[style].file.search(/http/) == 0) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-            map.load(this.responseText);
-            }
-        };
-        xhttp.open("GET", config.styles[style].file, false);
-        xhttp.send();
-    } else {
-        map.load(require(path.join(dataPath, '/styles', config.styles[style].file)));
-    }
 
+    logger.debug('Load map with style: ' + config.styles[style].file);
+    map.load(require(path.join(dataPath, '/styles', config.styles[style].file)));
 
     const imgBuffer = await renderMap(map, {
         zoom,
