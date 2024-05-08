@@ -16,7 +16,7 @@ We recommend running VT Raster Converter as a Docker container, which ensures al
 
 ### Create data folder
 
-VT Raster Converter requires input data (vector tiles, styles, fonts/glyphs and sprites) from which raster images are created. This data must be stored in a predefined local folder structure. To achieve optimal performance, VT Raster Converter can only read locally stored files from the data folder.
+VT Raster Converter requires input data (vector tiles, styles, fonts/glyphs and sprites) from which raster images are created. To achieve optimal performance, this data should be stored in a predefined local folder structure.
 
 ```
  |- data
@@ -40,15 +40,15 @@ A data folder with sample data can be found under [docs/example_configurations/d
 
 #### fonts
 
-The fonts folder contains [glyph sets in PBF format](https://maplibre.org/maplibre-style-spec/glyphs/). All glyph sets used in the style files, must be stored locally in the data folder. A useful script for converting font files to glyph sets can be found in the [OpenMapTiles fonts repository](https://github.com/openmaptiles/fonts).
+The fonts folder contains [glyph sets in PBF format](https://maplibre.org/maplibre-style-spec/glyphs/). The glyph sets used in the style files should be stored locally in the data folder. Alternatively, the glyphs can be requested via URL. A useful script for converting font files to glyph sets can be found in the [OpenMapTiles fonts repository](https://github.com/openmaptiles/fonts).
 
 #### sprites
 
-The sprites folder contains [sprite files](https://maplibre.org/maplibre-style-spec/sprite/) which are composed of a PNG image and a JSON index file. All sprites used in the style files, must be stored locally in the data folder.
+The sprites folder contains [sprite files](https://maplibre.org/maplibre-style-spec/sprite/) which are composed of a PNG image and a JSON index file. All sprites used in the style files should be stored locally in the data folder. Alternatively, the sprites can be requested via URL.
 
 #### tiles
 
-As input data VT Raster Converter can read vector tiles in [MBTiles format](https://github.com/mapbox/mbtiles-spec). All vector tiles used as sources in the style files, must be stored locally in the data folder.
+As input data VT Raster Converter can read vector tiles in [MBTiles format](https://github.com/mapbox/mbtiles-spec). All vector tiles used as sources in the style files should be stored locally in the data folder. Alternatively, the tiles can be requested via URL.
 
 If you have vector tiles in PBF format, you can convert them to an MBTiles file using [mbutil](https://github.com/mapbox/mbutil).
 
@@ -69,7 +69,7 @@ DELETE FROM metadata WHERE name='center' OR name='bounds';
 
 #### styles
 
-This folder contains the vector tile style files. All vector tile styles used used by VT Raster Converter, must be stored locally in the data folder.
+This folder contains the vector tile style files. All vector tile styles used by VT Raster Converter must be stored locally in the data folder.
 
 The style files contain URLs to the MBTile files and possibly to fonts and sprites if they are used in the style. Here is an example of how the tiles, fonts and sprites are specified in the style file. The URLs to a MBTiles file and a sprite are specified without file extensions. The specified files are searched in the corresponding subfolders of the data folder.
 
@@ -284,4 +284,4 @@ You need to create your vector tiles and styles in the desired coordinate system
 ## License
 MIT License. For more information see [LICENSE.txt](LICENSE.txt).
 
-Copyright 2023 Landesamt für Geoinformation und Landesvermessung Niedersachsen
+Copyright 2023-2024 Landesamt für Geoinformation und Landesvermessung Niedersachsen
