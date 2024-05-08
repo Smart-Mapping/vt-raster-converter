@@ -328,7 +328,7 @@ const toPNG = async (imgBuffer, width, height, ratio, bufferWidth, bufferHeight,
         raw: {
             width: width * ratio,
             height: height * ratio,
-            channels: 4,
+            channels: 4
         },
     });
 

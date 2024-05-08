@@ -1,4 +1,4 @@
-## v1.4.0 (not released)
+## v1.4.0 (2014-05-08)
 
 ### Changes
 * Add functions to request remote tiles and assets.
