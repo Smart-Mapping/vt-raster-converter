@@ -26,7 +26,7 @@ RUN apt-get remove -y curl krb5-locales gnupg && apt-get autoremove -y
 
 COPY ./package-lock.json /app/package-lock.json
 COPY ./package.json /app/package.json
-RUN npm update -g && npm ci
+RUN npm update -g && npm install
 
 COPY . /app
 

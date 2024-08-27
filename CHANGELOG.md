@@ -1,3 +1,8 @@
+## v1.4.2 (2024-08-27)
+
+### Updates
+* Update MapProxy to v2
+
 ## v1.4.1 (2024-06-03)
 
 ### Bug fixes
