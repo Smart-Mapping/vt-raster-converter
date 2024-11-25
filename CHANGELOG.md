@@ -1,3 +1,8 @@
+## v1.4.4 (2024-11-25)
+
+### Bug fixes
+* Library updates
+
 ## v1.4.3 (2024-09-11)
 
 ### Bug fixes
