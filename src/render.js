@@ -11,7 +11,7 @@ const axios = require('axios');
 const logger = require('./logger');
 const config = require('./config/config.json');
 
-const isMBTilesURL = (url) => url.startsWith('mbtiles://')
+const isMBTilesURL = (url) => url.startsWith('mbtiles://');
 
 /**
  * Splits out mbtiles name from the URL
@@ -152,33 +152,33 @@ const getRemoteTile = async (url, callback) => {
         responseType: 'arraybuffer'
     }).then(function (response) {
         switch (response.status) {
-            case 200: {
-                let data = response.data;
-                return callback(null, { data })
-            }
-            case 204: {
-                // No data for this url
-                return callback(null, {})
-            }
-            case 404: {
-                // Tile not found
-                // this may be valid for some tilesets that have partial coverage
-                // on servers that do not return blank tiles in these areas.
-                logger.warn(`Missing tile at: ${url}`)
-                return callback(null, {})
-            }
-            default: {
-                // assume error
-                const msg = `request for remote tile failed: ${url} (status: ${res.statusCode})`
-                logger.error(msg)
-                return callback(new Error(msg))
-            }
+        case 200: {
+            let data = response.data;
+            return callback(null, { data });
+        }
+        case 204: {
+            // No data for this url
+            return callback(null, {});
+        }
+        case 404: {
+            // Tile not found
+            // this may be valid for some tilesets that have partial coverage
+            // on servers that do not return blank tiles in these areas.
+            logger.warn(`Missing tile at: ${url}`);
+            return callback(null, {});
+        }
+        default: {
+            // assume error
+            const msg = `request for remote tile failed: ${url} (status: ${response.statusCode})`;
+            logger.error(msg);
+            return callback(new Error(msg));
+        }
         }
     }).catch(function (err) {
-        logger.error(err)
+        logger.error(err);
         return callback(err);
     });
-}
+};
 
 /**
  * Fetch a remotely hosted asset: glyph, sprite, etc
@@ -195,22 +195,22 @@ const getRemoteAsset = async (url, callback) => {
         responseType: 'arraybuffer'
     }).then(function (response) {
         switch (response.status) {
-            case 200: {
-                let data = response.data;
-                return callback(null, { data })
-            }
-            default: {
-                // assume error
-                const msg = `request for remote tile failed: ${url} (status: ${res.statusCode})`
-                logger.error(msg)
-                return callback(new Error(msg))
-            }
+        case 200: {
+            let data = response.data;
+            return callback(null, { data });
+        }
+        default: {
+            // assume error
+            const msg = `request for remote tile failed: ${url} (status: ${response.statusCode})`;
+            logger.error(msg);
+            return callback(new Error(msg));
+        }
         }
     }).catch(function (err) {
         return callback(err);
     });
-    return null
-}
+    return null;
+};
 
 /**
  * Constructs a request handler for the map to load resources.
@@ -223,66 +223,66 @@ const requestHandler =
             logger.debug(`Map request (kind ${kind}): ${url}`);
             try {
                 switch (kind) {
-                    case 1: {
-                        break;
+                case 1: {
+                    break;
+                }
+                case 2: {
+                    // source
+                    if (isMBTilesURL(url)) {
+                        getLocalTileJSON(path.join(dataPath + '/tiles'), url, callback);
+                    } else {
+                        getRemoteAsset(url, callback);
                     }
-                    case 2: {
-                        // source
-                        if (isMBTilesURL(url)) {
-                            getLocalTileJSON(path.join(dataPath + '/tiles'), url, callback);
-                        } else {
-                            getRemoteAsset(url, callback)
-                        }
-                        break;
+                    break;
+                }
+                case 3: {
+                    // tile
+                    if (isMBTilesURL(url)) {
+                        getLocalTile(path.join(dataPath + '/tiles'), url, callback);
+                    } else {
+                        getRemoteTile(url, callback);
                     }
-                    case 3: {
-                        // tile
-                        if (isMBTilesURL(url)) {
-                            getLocalTile(path.join(dataPath + '/tiles'), url, callback);
-                        } else {
-                            getRemoteTile(url, callback)
-                        }
-                        break;
+                    break;
+                }
+                case 4: {
+                    // glyph
+                    if (url.search(/http/) == 0) {
+                        getRemoteAsset(url, callback);
+                    } else {
+                        let rUrl = path.join(dataPath, '/fonts', url);
+                        rUrl = rUrl.replace(/%20/g, ' ');
+                        getLocalAsset(rUrl, callback);
                     }
-                    case 4: {
-                        // glyph
-                        if (url.search(/http/) == 0) {
-                            getRemoteAsset(url, callback);
-                        } else {
-                            let rUrl = path.join(dataPath, '/fonts', url);
-                            rUrl = rUrl.replace(/%20/g, ' ');
-                            getLocalAsset(rUrl, callback);
-                        }
-                        break;
+                    break;
+                }
+                case 5: {
+                    // sprite image
+                    if (url.search(/http/) == 0) {
+                        getRemoteAsset(url, callback);
+                    } else {
+                        const rUrl = path.join(dataPath, '/sprites', url);
+                        getLocalAsset(rUrl, callback);
                     }
-                    case 5: {
-                        // sprite image
-                        if (url.search(/http/) == 0) {
-                            getRemoteAsset(url, callback);
-                        } else {
-                            const rUrl = path.join(dataPath, '/sprites', url);
-                            getLocalAsset(rUrl, callback);
-                        }
-                        break;
+                    break;
+                }
+                case 6: {
+                    // sprite json
+                    if (url.search(/http/) == 0) {
+                        getRemoteAsset(url, callback);
+                    } else {
+                        const rUrl = path.join(dataPath, '/sprites', url);
+                        getLocalAsset(rUrl, callback);
                     }
-                    case 6: {
-                        // sprite json
-                        if (url.search(/http/) == 0) {
-                            getRemoteAsset(url, callback);
-                        } else {
-                            const rUrl = path.join(dataPath, '/sprites', url);
-                            getLocalAsset(rUrl, callback);
-                        }
-                        break;
-                    }
-                    case 7: {
-                        // image source
-                        break;
-                    }
-                    default: {
-                        // NOT HANDLED!
-                        logger.error(`Request kind not handled: ${kind}`);
-                    }
+                    break;
+                }
+                case 7: {
+                    // image source
+                    break;
+                }
+                default: {
+                    // NOT HANDLED!
+                    logger.error(`Request kind not handled: ${kind}`);
+                }
                 }
             } catch (err) {
                 logger.error(`Error while making resource request to: ${url}\n${err}`);
