@@ -1,10 +1,10 @@
-FROM python:3.11-alpine
+FROM python:3.13-alpine
 
 RUN apk update && apk add gcc proj proj-dev proj-util musl-dev git
 
 RUN python3 -m pip install --upgrade pip setuptools wheel
 
-RUN pip install Pillow PyYAML git+https://github.com/pyproj4/pyproj.git six MapProxy==2.0.2
+RUN pip install Pillow PyYAML git+https://github.com/pyproj4/pyproj.git six MapProxy==3.1.3
 
 RUN python -m pip uninstall -y pip
 
