@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 WORKDIR /app
 
@@ -18,9 +18,10 @@ RUN apt-get install -y \
     libuv1 \
     x11-utils \
     xvfb \
-    libicu66
+    libicu70 \
+    libwebp7
 
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs  
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && apt-get install -y nodejs  
 
 RUN apt-get remove -y curl krb5-locales gnupg && apt-get autoremove -y
 

@@ -8,7 +8,7 @@ This software is developed and used for the production of the maps of [basemap.d
 
 ### Prerequisites
 
-You need version 14, 16 or 18 of [Node.js](https://nodejs.org) to run VT Raster Converter locally.
+You need version 16, 18, 20 or 22 of [Node.js](https://nodejs.org) to run VT Raster Converter locally.
 
 VT Raster Converter uses the Node.js library of MapLibre GL Native to convert vector tile maps to raster images. The Maplibre GL Native binaries have very specific dependencies, so only very specific operating systems are supported. For more information see [@maplibre/maplibre-gl-native](https://github.com/maplibre/maplibre-native/tree/main/platform/node).
 
@@ -277,11 +277,11 @@ Examples of the best practices listed here can be seen in the [MapProxy](mapprox
 
 ### Use custom coordinate systems
 
-VT Raster Converter, respectively MapLibre GL Native, can only process data in Webmercator (EPSG:3857). Nevertheless, VT Raster Converter and MapProxy can be used to create raster images in other coordinate systems. This is only tested for "ETRS89 / UTM zone 32N" (EPSG:25832) and "ETRS89 / UTM zone 33N" (EPSG:25833) in the extend of germany and may not work for other coordinate systems or extents.
+VT Raster Converter, respectively MapLibre GL Native, can only process data in Webmercator (EPSG:3857). Nevertheless, VT Raster Converter and MapProxy can be used to create raster images in other coordinate systems. This is only tested for "ETRS89 / UTM zone 32N" (EPSG:25832) and "ETRS89 / UTM zone 33N" (EPSG:25833) in the extend of Germany and may not work for other coordinate systems or extents.
 
 You need to create your vector tiles and styles in the desired coordinate system and set the "sources" and "caches" in Maproxy to this coordinate system. However, the converter treats the data as if it were in Webmercator, which can lead to problems or errors in the rendering depending on the coordinate system. So just test it!
 
 ## License
 MIT License. For more information see [LICENSE.txt](LICENSE.txt).
 
-Copyright 2023-2024 Landesamt für Geoinformation und Landesvermessung Niedersachsen
+Copyright 2023-2025 Landesamt für Geoinformation und Landesvermessung Niedersachsen

@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        major-tag: [1.4, 1.4.4, stable]
+        major-tag: [1.4, 1.5, 1.5.0, stable]
         app: [vt-raster-converter, mapproxy]
         include: 
           - app: mapproxy
@@ -26,12 +26,14 @@ jobs:
           - app: vt-raster-converter
             context: .
             image: IMAGE_NAME_CONVERTER
-          - major-tag: 1.4
-            minor-tag: 1.4.4
-          - major-tag: 1.4.4
-            minor-tag: 1.4.4                                              
+          - major-tag: 1.5
+            minor-tag: 1.5.0
+          - major-tag: 1.5.0
+            minor-tag: 1.5.0                                              
           - major-tag: stable
-            minor-tag: 1.4.4                        
+            minor-tag: 1.5.0
+          - major-tag: 1.4
+            minor-tag: 1.4.4                                                                 
     steps:
       - name: Install Cosign
         uses: sigstore/cosign-installer@main

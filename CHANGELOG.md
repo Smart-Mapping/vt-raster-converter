@@ -1,3 +1,14 @@
+## v1.5.0 (2025-01-22)
+
+### Maintenance
+* Update MapLibre Native to v6.0.0
+* Update MapProxy to v3.1.3
+* Dependency updates
+* Migrate ESLint configuration
+
+### Bug fixes
+* Fix wrong variable names in getRemoteTile() and getRemoteAsset().
+
 ## v1.4.4 (2024-11-25)
 
 ### Bug fixes
