@@ -1,3 +1,8 @@
+## v1.5.1 (2025-03-11)
+
+### Bug fixes
+* Limit parameter ratio to values 1 - 8 (value 0 removed).
+
 ## v1.5.0 (2025-01-22)
 
 ### Maintenance

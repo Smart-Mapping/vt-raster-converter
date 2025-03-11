@@ -151,10 +151,10 @@ const parseParameters = (req) => {
     // ratio
     if (req.query.ratio !== undefined) {
         if (!isNaN(Number(req.query.ratio))) {
-            if (req.query.ratio >= 0 && req.query.ratio <= 8) {
+            if (req.query.ratio > 0 && req.query.ratio <= 8) {
                 params.ratio = +req.query.ratio;
             } else {
-                logger.error('Parameter ratio is out of range (0-8): ' + req.query.ratio);
+                logger.error('Parameter ratio is out of range (1-8): ' + req.query.ratio);
             }
         } else {
             logger.error('Parameter ratio cannot be converted to a number: ' + req.query.ratio);
