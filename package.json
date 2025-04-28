@@ -1,6 +1,6 @@
 {
   "name": "vt-raster-converter",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Convert vector tiles to raster tiles",
   "directories": {
     "test": "tests"
@@ -30,8 +30,8 @@
     "@mapbox/mbtiles": "^0.12.1",
     "@maplibre/maplibre-gl-native": "6.0.0",
     "axios": "^1.6.7",
-    "express": "^4.19.2",
-    "sharp": "^0.33.2",
+    "express": "^5.1.0",
+    "sharp": "^0.34.1",
     "winston": "^3.7.2"
   }
 }
