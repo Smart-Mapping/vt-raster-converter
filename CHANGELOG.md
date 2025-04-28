@@ -1,3 +1,9 @@
+## v1.5.2 (2025-04-28)
+
+### Maintenance
+* Update MapProxy to v3.1.4
+* Dependency updates
+
 ## v1.5.1 (2025-03-11)
 
 ### Bug fixes
