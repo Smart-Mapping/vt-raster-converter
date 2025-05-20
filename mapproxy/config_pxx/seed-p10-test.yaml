@@ -4,14 +4,14 @@
 
 seeds:
   bm_p10_col_25832:
-    caches: [bm_p10_col_utm32_cache]
+    caches: [bm_pxx_col_utm32_cache]
     # grids: []
     coverages: [test_area]
     levels:
       from: 11
       to: 11          
   bm_p10_col_25833:
-    caches: [bm_p10_col_utm33_cache]
+    caches: [bm_pxx_col_utm33_cache]
     # grids: []
     coverages: [test_area]
     levels:
@@ -19,14 +19,14 @@ seeds:
       to: 11
 
   bm_p10_gry_25832:
-    caches: [bm_p10_gry_utm32_cache]
+    caches: [bm_pxx_gry_utm32_cache]
     # grids: []
     coverages: [test_area]
     levels:
       from: 11
       to: 11      
   bm_p10_gry_25833:
-    caches: [bm_p10_gry_utm33_cache]
+    caches: [bm_pxx_gry_utm33_cache]
     # grids: []
     coverages: [test_area]
     levels:
