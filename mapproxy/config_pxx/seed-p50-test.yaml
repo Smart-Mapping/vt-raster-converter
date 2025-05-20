@@ -1,0 +1,39 @@
+# ------------------------------------------------
+# Test seeding configuration for basemap.de P50
+# ------------------------------------------------
+
+seeds:
+  bm_p50_col_25832:
+    caches: [bm_p50_col_utm32_cache]
+    # grids: []
+    coverages: [test_area]
+    levels:
+      from: 9
+      to: 9          
+  bm_p50_col_25833:
+    caches: [bm_p50_col_utm33_cache]
+    # grids: []
+    coverages: [test_area]
+    levels:
+      from: 9
+      to: 9
+
+  bm_p50_gry_25832:
+    caches: [bm_p50_gry_utm32_cache]
+    # grids: []
+    coverages: [test_area]
+    levels:
+      from: 9
+      to: 9      
+  bm_p50_gry_25833:
+    caches: [bm_p50_gry_utm33_cache]
+    # grids: []
+    coverages: [test_area]
+    levels:
+      from: 9
+      to: 9
+coverages:
+  test_area:
+    #bbox: [9.668641,52.326652,9.809363,52.407013]
+    bbox: [9.57997,52.34659,9.89467,52.53173]
+    srs: 'EPSG:4326'   

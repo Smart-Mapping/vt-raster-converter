@@ -1,108 +1,108 @@
 # ---------------------------------------------
-# MapProxy configuration basemap.de P10
+# MapProxy configuration basemap.de Pxx (P10, P50)
 # ---------------------------------------------
 
 services:
   demo:
   wmts:
     md:
-      title: basemap.de P10
-      abstract: basemap.de P10
+      title: basemap.de Pxx
+      abstract: basemap.de Pxx
 
 layers:
-  - name: bm_p10_col_utm32
+  - name: bm_pxx_col_utm32
     title: "basemap.de P10 Farbe UTM32"
-    sources: [bm_p10_col_utm32_cache]
-    tile_sources: [bm_p10_col_utm32_cache]    
-  - name: bm_p10_gry_utm32
+    sources: [bm_pxx_col_utm32_cache]
+    tile_sources: [bm_pxx_col_utm32_cache]    
+  - name: bm_pxx_gry_utm32
     title: "basemap.de P10 Grau UTM32"
-    sources: [bm_p10_gry_utm32_cache]
-    tile_sources: [bm_p10_gry_utm32_cache]
-  - name: bm_p10_col_utm33
+    sources: [bm_pxx_gry_utm32_cache]
+    tile_sources: [bm_pxx_gry_utm32_cache]
+  - name: bm_pxx_col_utm33
     title: "basemap.de P10 Farbe UTM33"
-    sources: [bm_p10_col_utm33_cache]
-    tile_sources: [bm_p10_col_utm33_cache]
-  - name: bm_p10_gry_utm33
+    sources: [bm_pxx_col_utm33_cache]
+    tile_sources: [bm_pxx_col_utm33_cache]
+  - name: bm_pxx_gry_utm33
     title: "basemap.de P10 Grau UTM33"
-    sources: [bm_p10_gry_utm33_cache]
-    tile_sources: [bm_p10_gry_utm33_cache]                      
+    sources: [bm_pxx_gry_utm33_cache]
+    tile_sources: [bm_pxx_gry_utm33_cache]                          
 
 caches:
-  bm_p10_col_utm32_cache:
+  bm_pxx_col_utm32_cache:
     grids: [DE_EPSG_25832_ADV]
-    sources: [bm_p10_col_utm32_converter]
+    sources: [bm_pxx_col_utm32_converter]
     meta_size: [1,1]
     meta_buffer: 0
     disable_storage: false
     cache:
       type: sqlite
-      directory: /mapproxy/cache_data/bm_p10_col
+      directory: /mapproxy/cache_data/bm_pxx_col
     image:
       transparent: true    
 
-  bm_p10_gry_utm32_cache:
+  bm_pxx_gry_utm32_cache:
     grids: [DE_EPSG_25832_ADV]
-    sources: [bm_p10_gry_utm32_converter]
+    sources: [bm_pxx_gry_utm32_converter]
     meta_size: [1,1]
     meta_buffer: 0    
     disable_storage: false
     cache:
       type: sqlite
-      directory: /mapproxy/cache_data/bm_p10_gry
+      directory: /mapproxy/cache_data/bm_pxx_gry
     image:
       transparent: true
 
-  bm_p10_col_utm33_cache:
+  bm_pxx_col_utm33_cache:
     grids: [DE_EPSG_25833_ADV]
-    sources: [bm_p10_col_utm33_converter]
+    sources: [bm_pxx_col_utm33_converter]
     meta_size: [1,1]
     meta_buffer: 0
     disable_storage: false
     cache:
       type: sqlite
-      directory: /mapproxy/cache_data/bm_p10_col
+      directory: /mapproxy/cache_data/bm_pxx_col
     image:
       transparent: true    
 
-  bm_p10_gry_utm33_cache:
+  bm_pxx_gry_utm33_cache:
     grids: [DE_EPSG_25833_ADV]
-    sources: [bm_p10_gry_utm33_converter]
+    sources: [bm_pxx_gry_utm33_converter]
     meta_size: [1,1]
     meta_buffer: 0    
     disable_storage: false
     cache:
       type: sqlite
-      directory: /mapproxy/cache_data/bm_p10_gry
+      directory: /mapproxy/cache_data/bm_pxx_gry
     image:
       transparent: true     
 
 sources:
-  bm_p10_col_utm32_converter:
+  bm_pxx_col_utm32_converter:
     type: tile
     grid: DE_EPSG_25832_ADV
-    url: http://converter:8081/tiles/bm_p10_col_utm32/%(z)s/%(x)s/%(y)s?ratio=8
-    min_res: 2.38865713391176
+    url: http://converter:8081/tiles/bm_pxx_col_utm32/%(z)s/%(x)s/%(y)s?ratio=8
+    min_res: 9.55462853564703
     max_res: 1.19432856695588
 
-  bm_p10_gry_utm32_converter:
+  bm_pxx_gry_utm32_converter:
     type: tile
     grid: DE_EPSG_25832_ADV
-    url: http://converter:8081/tiles/bm_p10_gry_utm32/%(z)s/%(x)s/%(y)s?ratio=8
-    min_res: 2.38865713391176
+    url: http://converter:8081/tiles/bm_pxx_gry_utm32/%(z)s/%(x)s/%(y)s?ratio=8
+    min_res: 9.55462853564703
     max_res: 1.19432856695588   
 
-  bm_p10_col_utm33_converter:
+  bm_pxx_col_utm33_converter:
     type: tile
     grid: DE_EPSG_25833_ADV
-    url: http://converter:8081/tiles/bm_p10_col_utm33/%(z)s/%(x)s/%(y)s?ratio=8
-    min_res: 2.38865713391176
+    url: http://converter:8081/tiles/bm_pxx_col_utm33/%(z)s/%(x)s/%(y)s?ratio=8
+    min_res: 9.55462853564703
     max_res: 1.19432856695588   
 
-  bm_p10_gry_utm33_converter:
+  bm_pxx_gry_utm33_converter:
     type: tile
     grid: DE_EPSG_25833_ADV
-    url: http://converter:8081/tiles/bm_p10_gry_utm33/%(z)s/%(x)s/%(y)s?ratio=8
-    min_res: 2.38865713391176
+    url: http://converter:8081/tiles/bm_pxx_gry_utm33/%(z)s/%(x)s/%(y)s?ratio=8
+    min_res: 9.55462853564703
     max_res: 1.19432856695588    
 
 grids:

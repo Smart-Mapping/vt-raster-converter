@@ -1,37 +1,37 @@
 # ------------------------------------------------
-# Seeding configuration for basemap.de P10
+# Seeding configuration for basemap.de P50
 # ------------------------------------------------
 
 seeds:
-  bm_p10_col_25832:
-    caches: [bm_p10_col_utm32_cache]
+  bm_p50_col_25832:
+    caches: [bm_p50_col_utm32_cache]
     # grids: []
     coverages: [de_utm32]
     levels:
-      from: 11
-      to: 11            
-  bm_p10_col_25833:
-    caches: [bm_p10_col_utm33_cache]
+      from: 9
+      to: 9            
+  bm_p50_col_25833:
+    caches: [bm_p50_col_utm33_cache]
     # grids: []
     coverages: [de_utm33]
     levels:
-      from: 11
-      to: 11
+      from: 9
+      to: 9
 
-  bm_p10_gry_25832:
-    caches: [bm_p10_gry_utm32_cache]
+  bm_p50_gry_25832:
+    caches: [bm_p50_gry_utm32_cache]
     # grids: []
     coverages: [de_utm32]
     levels:
-      from: 11
-      to: 11      
-  bm_p10_gry_25833:
-    caches: [bm_p10_gry_utm33_cache]
+      from: 9
+      to: 9      
+  bm_p50_gry_25833:
+    caches: [bm_p50_gry_utm33_cache]
     # grids: []
     coverages: [de_utm33]
     levels:
-      from: 11
-      to: 11
+      from: 9
+      to: 9
 coverages:
   de_utm32:
     #bbox: [-46133.17000000, 5048875.26857567, 1206211.10142433, 6301219.54000000]

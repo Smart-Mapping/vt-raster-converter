@@ -1,14 +1,4 @@
 services:
-  # # Web Raster
-  # mapproxy:
-  #   build: ./mapproxy
-  #   image: basemapde/mapproxy
-  #   ports:
-  #     - "8080:8080"
-  #   volumes:
-  #     - ./mapproxy/cache_data:/mapproxy/cache_data
-  #     - ./logs:/logs
-  # P10
   mapproxy:
     build: ./mapproxy
     image: basemapde/mapproxy
@@ -16,13 +6,16 @@ services:
       - "8080:8080"
     volumes:
       - ./mapproxy/cache_data:/mapproxy/cache_data
-      - ./logs:/logs    
-      - ./mapproxy/config_p10:/mapproxy/config
+      - ./logs:/logs
+      # Web Raster
+      #- ./mapproxy/config:/mapproxy/config
+      # Pxx
+      - ./mapproxy/config_pxx:/mapproxy/config
   converter:
     build: .
     image: basemapde/vt-raster-converter
-    ports:
-      - "8081:8081"
+    #ports:
+    #  - "8081:8081"
     environment:
       - LOG_LEVEL=debug # debug, info, warning, error
       - LOG_FILE=/logs/vt-raster-converter.log
