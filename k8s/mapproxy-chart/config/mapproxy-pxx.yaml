@@ -1,0 +1,163 @@
+# ---------------------------------------------
+# MapProxy configuration basemap.de Pxx (P10, P50)
+# ---------------------------------------------
+
+services:
+  demo:
+  wmts:
+    md:
+      title: basemap.de Pxx
+      abstract: basemap.de Pxx
+
+layers:
+  - name: bm_pxx_col_utm32
+    title: "basemap.de P10 Farbe UTM32"
+    sources: [bm_pxx_col_utm32_cache]
+    tile_sources: [bm_pxx_col_utm32_cache]    
+  - name: bm_pxx_gry_utm32
+    title: "basemap.de P10 Grau UTM32"
+    sources: [bm_pxx_gry_utm32_cache]
+    tile_sources: [bm_pxx_gry_utm32_cache]
+  - name: bm_pxx_col_utm33
+    title: "basemap.de P10 Farbe UTM33"
+    sources: [bm_pxx_col_utm33_cache]
+    tile_sources: [bm_pxx_col_utm33_cache]
+  - name: bm_pxx_gry_utm33
+    title: "basemap.de P10 Grau UTM33"
+    sources: [bm_pxx_gry_utm33_cache]
+    tile_sources: [bm_pxx_gry_utm33_cache]                          
+
+caches:
+  bm_pxx_col_utm32_cache:
+    grids: [DE_EPSG_25832_ADV]
+    sources: [bm_pxx_col_utm32_converter]
+    meta_size: [1,1]
+    meta_buffer: 0
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_pxx_col
+    image:
+      transparent: true    
+
+  bm_pxx_gry_utm32_cache:
+    grids: [DE_EPSG_25832_ADV]
+    sources: [bm_pxx_gry_utm32_converter]
+    meta_size: [1,1]
+    meta_buffer: 0    
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_pxx_gry
+    image:
+      transparent: true
+
+  bm_pxx_col_utm33_cache:
+    grids: [DE_EPSG_25833_ADV]
+    sources: [bm_pxx_col_utm33_converter]
+    meta_size: [1,1]
+    meta_buffer: 0
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_pxx_col
+    image:
+      transparent: true    
+
+  bm_pxx_gry_utm33_cache:
+    grids: [DE_EPSG_25833_ADV]
+    sources: [bm_pxx_gry_utm33_converter]
+    meta_size: [1,1]
+    meta_buffer: 0    
+    disable_storage: false
+    cache:
+      type: sqlite
+      directory: /mapproxy/cache_data/bm_pxx_gry
+    image:
+      transparent: true     
+
+sources:
+  bm_pxx_col_utm32_converter:
+    type: tile
+    grid: DE_EPSG_25832_ADV
+    url: http://converter:8081/tiles/bm_pxx_col_utm32/%(z)s/%(x)s/%(y)s?ratio=8
+    min_res: 9.55462853564703
+    max_res: 1.19432856695588
+
+  bm_pxx_gry_utm32_converter:
+    type: tile
+    grid: DE_EPSG_25832_ADV
+    url: http://converter:8081/tiles/bm_pxx_gry_utm32/%(z)s/%(x)s/%(y)s?ratio=8
+    min_res: 9.55462853564703
+    max_res: 1.19432856695588   
+
+  bm_pxx_col_utm33_converter:
+    type: tile
+    grid: DE_EPSG_25833_ADV
+    url: http://converter:8081/tiles/bm_pxx_col_utm33/%(z)s/%(x)s/%(y)s?ratio=8
+    min_res: 9.55462853564703
+    max_res: 1.19432856695588   
+
+  bm_pxx_gry_utm33_converter:
+    type: tile
+    grid: DE_EPSG_25833_ADV
+    url: http://converter:8081/tiles/bm_pxx_gry_utm33/%(z)s/%(x)s/%(y)s?ratio=8
+    min_res: 9.55462853564703
+    max_res: 1.19432856695588    
+
+grids:
+  # Grid for basemap.de P10
+  DE_EPSG_25832_ADV:
+    srs: 'EPSG:25832'
+    tile_size: [256, 256]
+    res: [4891.96981025128, 
+          2445.98490512564, 
+          1222.99245256282, 
+          611.49622628141, 
+          305.748113140705, 
+          152.874056570353, 
+          76.4370282851763, 
+          38.2185141425881, 
+          19.1092570712941, 
+          9.55462853564703, 
+          4.77731426782352, 
+          2.38865713391176, 
+          1.19432856695588, 
+          0.597164283477939]          
+    bbox: [-46133.17, 5048875.268575673, 1206211.101424327, 6301219.54]
+    bbox_srs: 'EPSG:25832'
+    origin: 'ul'
+
+  # Grid for basemap.de P10
+  DE_EPSG_25833_ADV:
+    srs: 'EPSG:25833'
+    tile_size: [256, 256]
+    res: [4891.96981025128, 
+          2445.98490512564, 
+          1222.99245256282, 
+          611.49622628141, 
+          305.748113140705, 
+          152.874056570353, 
+          76.4370282851763, 
+          38.2185141425881, 
+          19.1092570712941, 
+          9.55462853564703, 
+          4.77731426782352, 
+          2.38865713391176, 
+          1.19432856695588, 
+          0.597164283477939]      
+    bbox: [-464849.38000000, 5057815.86857567, 787494.89142433, 6310160.14000000]
+    bbox_srs: 'EPSG:25833'
+    origin: 'ul'    
+
+globals:
+  image:
+    # use best resampling for vector data
+    resampling_method: bicubic # nearest/bilinear
+    # stretch cached images by this factor before
+    # using the next level
+    stretch_factor: 1.5
+    # shrink cached images up to this factor before
+    # returning an empty image (for the first level)
+    max_shrink_factor: 4.0
+    paletted: false

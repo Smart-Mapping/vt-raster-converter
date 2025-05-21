@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: vt-raster-converter-cluster-ip
+spec:
+    type: ClusterIP
+    selector:
+        app: {{ .Values.converter.name }}
+    ports:
+        - port: {{ .Values.converter.servicePort }}
+          targetPort: {{ .Values.converter.containerPort }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: vt-raster-converter-deployment
+spec:
+    replicas: {{ .Values.converter.replicas }}
+    revisionHistoryLimit: 2
+    selector:
+        matchLabels:
+            app: {{ .Values.converter.name }}
+    template:
+        metadata:
+            labels:
+                app: {{ .Values.converter.name }}
+        spec:
+            #nodeSelector:
+            #  agentpool: {{ .Values.agentpool }}
+            securityContext:
+              {{- toYaml .Values.podSecurityContext | nindent 14 }}
+            volumes:
+                - name: vtrc-data
+                  persistentVolumeClaim:
+                    claimName: vtrc-data
+                - name: {{ .Values.converter.configMap }}
+                  configMap:
+                    name: {{ .Values.converter.configMap }}            
+            containers:
+                - name: {{ .Values.converter.name }}
+                  securityContext:
+                    {{- toYaml .Values.containerSecurityContext | nindent 20 }}
+                  image: {{ .Values.converter.image }}
+                  resources:
+                    {{- toYaml .Values.resources | nindent 20 }}
+                  ports:
+                    - containerPort: {{ .Values.converter.containerPort }}
+                  volumeMounts:
+                    - name: vtrc-data
+                      mountPath: {{ .Values.converter.dataPath }}
+                    - name: {{ .Values.converter.configMap }}
+                      mountPath: /app/src/config/config.json
+                      subPath: config.json
+                      readOnly: true                  
+                  env:
+                    - name: DATA_PATH
+                      value: "{{ .Values.converter.dataPath }}"
+                    - name: LOG_LEVEL
+                      value: "{{ .Values.converter.logLevel }}"
+                    - name: NODE_MEMORY_LIMIT
+                      value: "{{ .Values.converter.nodeMemoryLimit }}"

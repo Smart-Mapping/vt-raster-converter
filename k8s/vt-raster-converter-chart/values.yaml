@@ -1,0 +1,36 @@
+#agentpool: rasterpool
+
+converter:
+  name: vt-raster-converter
+  image: hub.basemap.de/raster/vt-raster-converter:1.5
+  replicas: 2
+  containerPort: 8081
+  servicePort: 8081
+  dataPath: /data
+  logLevel: error
+  logFile: /app/logs/vt-raster-converter.log
+  nodeMemoryLimit: 8000
+  configMap: vtrc-config
+
+podSecurityContext:
+  fsGroup: 1099
+  runAsUser: 1099
+  runAsGroup: 1099
+  runAsNonRoot: true
+  
+containerSecurityContext:
+  runAsUser: 1099
+  privileged: false
+  runAsNonRoot: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - all 
+
+# resources: 
+#   requests:
+#     cpu: 2
+#     memory: 4000Mi
+#   limits:
+#     cpu: 3
+#     memory: 8000Mi

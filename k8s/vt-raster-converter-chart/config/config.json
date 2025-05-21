@@ -1,0 +1,37 @@
+{
+    "server": {
+        "port": 8081
+    }, 
+    "styles": {
+        "bm_web_col": {
+            "file": "bm_web_col_ras.json"
+        },
+        "bm_web_gry": {
+            "file": "bm_web_gry_ras.json"
+        },
+        "bm_web_col_utm32": {
+            "file": "bm_web_col_ras_utm32.json"
+        },
+        "bm_web_gry_utm32": {
+            "file": "bm_web_gry_ras_utm32.json"
+        },
+        "bm_web_col_utm33": {
+            "file": "bm_web_col_ras_utm33.json"
+        },
+        "bm_web_gry_utm33": {
+            "file": "bm_web_gry_ras_utm33.json"
+        },
+        "bm_pxx_col_utm32": {
+            "file": "bm_print_col_ras_utm32.json"
+        },
+        "bm_pxx_col_utm33": {
+            "file": "bm_print_col_ras_utm33.json"
+        },
+        "bm_pxx_gry_utm32": {
+            "file": "bm_print_gry_ras_utm32.json"
+        },
+        "bm_pxx_gry_utm33": {
+            "file": "bm_print_gry_ras_utm33.json"
+        }
+    }
+}

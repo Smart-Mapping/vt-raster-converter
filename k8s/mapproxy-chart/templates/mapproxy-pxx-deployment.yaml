@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: mapproxy-pxx-cluster-ip
+spec:
+    type: ClusterIP
+    selector:
+        app: {{ .Values.mapproxy.name }}
+    ports:
+        - port: {{ .Values.mapproxy.servicePort }}
+          targetPort: {{ .Values.mapproxy.containerPort }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: mapproxy-pxx-deployment
+spec:
+    replicas: {{ .Values.mapproxy.replicas }}
+    revisionHistoryLimit: 2
+    selector:
+        matchLabels:
+            app: {{ .Values.mapproxy.name }}
+    template:
+        metadata:
+            labels:
+                app: {{ .Values.mapproxy.name }}
+        spec:
+            #nodeSelector:
+            #  agentpool: {{ .Values.agentpool }}
+            securityContext:
+              {{- toYaml .Values.podSecurityContext | nindent 14 }}
+            volumes:
+                - name: {{ .Values.mapproxy.configMap }}
+                  configMap:
+                    name: {{ .Values.mapproxy.configMap }}  
+                - name: mapproxy-cache
+                  persistentVolumeClaim:
+                    claimName: mapproxy-cache                                
+            containers:
+                - name: {{ .Values.mapproxy.name }}
+                  securityContext:
+                    {{- toYaml .Values.containerSecurityContext | nindent 20 }}
+                  image: {{ .Values.mapproxy.image }}              
+                  ports:
+                    - containerPort: {{ .Values.mapproxy.containerPort }}
+                  volumeMounts:
+                    - name: mapproxy-cache
+                      mountPath: {{ .Values.mapproxy.cachePath }}
+                    - name: {{ .Values.mapproxy.configMap }}
+                      mountPath: /mapproxy/config/mapproxy-pxx.yaml
+                      subPath: mapproxy.yaml
+                      readOnly: true

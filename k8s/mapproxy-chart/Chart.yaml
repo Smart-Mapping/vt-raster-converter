@@ -1,0 +1,8 @@
+apiVersion: v2
+name: vtrc-mapproxy-chart
+description: A helmet chart for seeding raster tiles with MapProxy configured for VT Raster Converter
+type: application
+version: 0.1.0
+appVersion: "1.5.2"
+maintainers:
+  - name: Landesamt für Geoinformation und Landesvermessung Niedersachsen

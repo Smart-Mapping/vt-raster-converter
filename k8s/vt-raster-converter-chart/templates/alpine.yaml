@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: alpine-vtrc-deployment
+spec:
+    replicas: 1
+    revisionHistoryLimit: 2
+    selector:
+        matchLabels:
+            app: alpine
+    template:
+        metadata:
+            labels:
+                app: alpine
+        spec:
+            #nodeSelector:
+            #    agentpool: {{ .Values.agentpool }}
+            volumes:
+                - name: vtrc-data
+                  persistentVolumeClaim:
+                    claimName: vtrc-data
+            containers:
+                - name: alpine
+                  image: nginx:latest
+                  volumeMounts:
+                    - name: vtrc-data
+                      mountPath: "/data"

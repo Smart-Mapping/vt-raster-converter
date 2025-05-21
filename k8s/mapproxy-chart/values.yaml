@@ -1,0 +1,109 @@
+#agentpool: rasterpool
+
+mapproxy:
+  name: mapproxy
+  image: hub.basemap.de/raster/mapproxy:1.5
+  replicas: 1
+  containerPort: 8080
+  servicePort: 8080
+  cachePath: /mapproxy/cache_data
+  configMap: mapproxy-config
+
+P10SeedTestJob:
+  name: p10-seed-test
+  schedule: "0 0 1 1 *"
+  suspend: true
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  seeding:
+    mapproxyConfigFile: /mapproxy/config/mapproxy-pxx.yaml
+    seedConfigFile: /mapproxy/config/seed-p10-test.yaml
+    seedTasks: ALL
+    concurrency: 5
+
+P50SeedTestJob:
+  name: p50-seed-test
+  schedule: "0 0 1 1 *"
+  suspend: true
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  seeding:
+    mapproxyConfigFile: /mapproxy/config/mapproxy-pxx.yaml
+    seedConfigFile: /mapproxy/config/seed-p50-test.yaml
+    seedTasks: ALL
+    concurrency: 5
+
+P50SeedJob:
+  name: p50-seed-all
+  schedule: "0 0 1 1 *"
+  suspend: true
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  seeding:
+    mapproxyConfigFile: /mapproxy/config/mapproxy-pxx.yaml
+    seedConfigFile: /mapproxy/config/seed-p50.yaml
+    seedTasks: ALL
+    concurrency: 5
+
+P50SeedJobCol25832:
+  name: p50-seed-col-25832
+  schedule: "0 0 1 1 *"
+  suspend: true
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  seeding:
+    mapproxyConfigFile: /mapproxy/config/mapproxy-pxx.yaml
+    seedConfigFile: /mapproxy/config/seed-p50.yaml
+    seedTasks: "bm_p50_col_25832"
+    concurrency: 5
+
+P50SeedJobGry25832:
+  name: p50-seed-gry-25832
+  schedule: "0 0 1 1 *"
+  suspend: true
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  seeding:
+    mapproxyConfigFile: /mapproxy/config/mapproxy-pxx.yaml
+    seedConfigFile: /mapproxy/config/seed-p50.yaml
+    seedTasks: "bm_p50_gry_25832"
+    concurrency: 20
+
+P50SeedJobCol25833:
+  name: p50-seed-col-25833
+  schedule: "0 0 1 1 *"
+  suspend: true
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  seeding:
+    mapproxyConfigFile: /mapproxy/config/mapproxy-pxx.yaml
+    seedConfigFile: /mapproxy/config/seed-p50.yaml
+    seedTasks: "bm_p50_col_25833"
+    concurrency: 5
+
+P50SeedJobGry25833:
+  name: p50-seed-gry-25833
+  schedule: "0 0 1 1 *"
+  suspend: true
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  seeding:
+    mapproxyConfigFile: /mapproxy/config/mapproxy-pxx.yaml
+    seedConfigFile: /mapproxy/config/seed-p50.yaml
+    seedTasks: "bm_p50_gry_25833"
+    concurrency: 5               
+
+podSecurityContext:
+  fsGroup: 1099
+  runAsUser: 1099
+  runAsGroup: 1099
+  runAsNonRoot: true
+
+containerSecurityContext:
+  runAsUser: 1099
+  privileged: false
+  runAsNonRoot: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - all

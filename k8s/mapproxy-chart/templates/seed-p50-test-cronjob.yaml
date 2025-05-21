@@ -1,0 +1,51 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Values.P50SeedTestJob.name }}
+spec:
+  schedule: {{ .Values.P50SeedTestJob.schedule | quote }}
+  successfulJobsHistoryLimit: {{ .Values.P50SeedTestJob.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.P50SeedTestJob.failedJobsHistoryLimit }}
+  suspend: {{ .Values.P50SeedTestJob.suspend}}  
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          #nodeSelector:
+           # agentpool: {{ .Values.agentpool }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}        
+          containers:
+            - name: seed-raster-tiles
+              securityContext:
+                {{- toYaml .Values.containerSecurityContext | nindent 16 }}
+              image: {{ .Values.mapproxy.image }}
+              command: 
+                - "mapproxy-seed"
+                - "-f"
+                - {{ .Values.P50SeedTestJob.seeding.mapproxyConfigFile | quote }}
+                - "-s"
+                - {{ .Values.P50SeedTestJob.seeding.seedConfigFile | quote }}
+                - "-c"
+                - {{ .Values.P50SeedTestJob.seeding.concurrency | quote }}
+                - "--seed"
+                - {{ .Values.P50SeedJob.seeding.seedTasks | quote }} 
+              volumeMounts:      
+                - name: mapproxy-cache
+                  mountPath: {{ .Values.mapproxy.cachePath }}                    
+                - name: {{ .Values.mapproxy.configMap }}
+                  mountPath: /mapproxy/config/mapproxy-pxx.yaml
+                  subPath: mapproxy.yaml
+                  readOnly: true
+                - name: {{ .Values.mapproxy.configMap }}
+                  mountPath: /mapproxy/config/seed-p50-test.yaml
+                  subPath: seed-p50-test.yaml
+                  readOnly: true               
+          volumes: 
+            - name: mapproxy-cache
+              persistentVolumeClaim:
+                claimName: mapproxy-cache            
+            - name: {{ .Values.mapproxy.configMap }}
+              configMap:
+                name: {{ .Values.mapproxy.configMap }}                  
+          restartPolicy: OnFailure
