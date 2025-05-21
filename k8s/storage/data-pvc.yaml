@@ -8,7 +8,7 @@ spec:
   storageClassName: standard-ssd-lrs-retain
   resources:
     requests:
-      storage: 30Gi
+      storage: 50Gi
 
 ---
 

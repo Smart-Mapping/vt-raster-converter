@@ -80,28 +80,28 @@ sources:
   bm_pxx_col_utm32_converter:
     type: tile
     grid: DE_EPSG_25832_ADV
-    url: http://converter:8081/tiles/bm_pxx_col_utm32/%(z)s/%(x)s/%(y)s?ratio=8
+    url: http://vt-raster-converter-cluster-ip:8081/tiles/bm_pxx_col_utm32/%(z)s/%(x)s/%(y)s?ratio=8
     min_res: 9.55462853564703
     max_res: 1.19432856695588
 
   bm_pxx_gry_utm32_converter:
     type: tile
     grid: DE_EPSG_25832_ADV
-    url: http://converter:8081/tiles/bm_pxx_gry_utm32/%(z)s/%(x)s/%(y)s?ratio=8
+    url: http://vt-raster-converter-cluster-ip:8081/tiles/bm_pxx_gry_utm32/%(z)s/%(x)s/%(y)s?ratio=8
     min_res: 9.55462853564703
     max_res: 1.19432856695588   
 
   bm_pxx_col_utm33_converter:
     type: tile
     grid: DE_EPSG_25833_ADV
-    url: http://converter:8081/tiles/bm_pxx_col_utm33/%(z)s/%(x)s/%(y)s?ratio=8
+    url: http://vt-raster-converter-cluster-ip:8081/tiles/bm_pxx_col_utm33/%(z)s/%(x)s/%(y)s?ratio=8
     min_res: 9.55462853564703
     max_res: 1.19432856695588   
 
   bm_pxx_gry_utm33_converter:
     type: tile
     grid: DE_EPSG_25833_ADV
-    url: http://converter:8081/tiles/bm_pxx_gry_utm33/%(z)s/%(x)s/%(y)s?ratio=8
+    url: http://vt-raster-converter-cluster-ip:8081/tiles/bm_pxx_gry_utm33/%(z)s/%(x)s/%(y)s?ratio=8
     min_res: 9.55462853564703
     max_res: 1.19432856695588    
 

@@ -48,5 +48,5 @@ spec:
                       mountPath: {{ .Values.mapproxy.cachePath }}
                     - name: {{ .Values.mapproxy.configMap }}
                       mountPath: /mapproxy/config/mapproxy-pxx.yaml
-                      subPath: mapproxy.yaml
+                      subPath: mapproxy-pxx.yaml
                       readOnly: true
