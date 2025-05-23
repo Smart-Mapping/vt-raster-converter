@@ -17,7 +17,11 @@ caches:
   example-cache:
     grids: [GLOBAL_WEBMERCATOR]
     sources: [vt-raster-converter]   
-    disable_storage: true
+    disable_storage: false
+    cache:
+      type: file
+      directory_layout: tms
+      directory: /mapproxy/cache_data/example-cache
     image:
       transparent: true
 

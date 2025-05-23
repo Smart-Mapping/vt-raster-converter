@@ -1,0 +1,10 @@
+# ------------------------------------------------
+# Seeding configuration for example cache
+# ------------------------------------------------
+
+seeds:
+  example-cache:
+    caches: [example-cache]
+    levels:
+      from: 0
+      to: 3
