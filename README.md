@@ -255,8 +255,9 @@ npm run lint:fix
 
 ## Use MapProxy to store raster tiles
 
-VT Raster Converter can be included as a [tile source](https://mapproxy.org/docs/nightly/sources.html#tiles) in MapProxy.
+Only single raster tiles can be requested via the API of VT Raster Converter. If you want to convert many tiles, you need an additional program that requests and saves the single tiles from the converter. [MapProxy](https://mapproxy.github.io/mapproxy/latest/index.html) can be used for this purpose.
 
+VT Raster Converter can be included as a [tile source](https://mapproxy.github.io/mapproxy/latest/sources.html#tiles-label) in MapProxy.
 
 ```yaml
 sources:
@@ -267,6 +268,26 @@ sources:
 ```
 
 For a complete example of a MapProxy configuration see [mapproxy.yaml](mapproxy/config/mapproxy.yaml).
+
+### Start MapProxy seeding
+
+The [mapproxy-seed](https://mapproxy.github.io/mapproxy/latest/seed.html) script can be used to perform a conversion/tiling of large areas.
+
+Here is an example of how a conversion process can be started with MapProxy using sample data.
+
+Start with Docker Compose environment using sample data:
+ 
+```sh
+docker compose -f docker-compose-example.yaml up --build
+```
+
+Start seeding with MapProxy:
+
+```sh
+docker exec -it vt-raster-converter-mapproxy-1 mapproxy-seed -f /mapproxy/config/mapproxy.yaml -s /mapproxy/config/seed.yaml --seed=example-cache
+```
+
+The converted raster images can then be found under mapproxy/cache_data/example_cache.
 
 ### Best practices
 
