@@ -1,3 +1,10 @@
+## v1.5.3 (2025-09-09)
+
+### Maintenance
+* Update MapLibre Native to v6.2.0
+* Update MapProxy to v5.0.0
+* Dependency updates
+
 ## v1.5.2 (2025-04-28)
 
 ### Maintenance
