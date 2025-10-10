@@ -1,3 +1,8 @@
+## v1.5.4 (2025-10-10)
+
+### Maintenance
+* Dependency updates
+
 ## v1.5.3 (2025-09-09)
 
 ### Maintenance
