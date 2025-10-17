@@ -249,6 +249,71 @@ const getRemotePMTileJSON = async (url, callback) => {
 };
 
 /**
+ * Given a URL template to a remote tile server, get the TileJSON for that to load correct tiles.
+ *
+ * @param {string} url - url template of a tile server (format: 'https://tileserver.com/tiles/{z}/{x}/{y}.mvt')
+ * @param {function} callback - function to call with (err, {data})
+ */
+const getRemoteTileJSON = async (url, callback) => {
+    logger.debug(`Preparing remote tile server TileJSON with ${url}`);
+    try {
+        // Validate it's an HTTP(S) URL
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            throw new Error('Remote URL must be an HTTP or HTTPS URL');
+        }
+        
+        // Check if URL contains tile template placeholders
+        if (!url.includes('{z}') || !url.includes('{x}') || !url.includes('{y}')) {
+            throw new Error('URL must contain {z}, {x}, and {y} placeholders');
+        }
+        
+        // Determine tile format from URL extension
+        const ext = path.extname(url.split('{')[0]); // Get extension before placeholders
+        let format = 'pbf'; // default for vector tiles
+        
+        if (url.includes('.mvt') || url.includes('.pbf')) {
+            format = 'pbf';
+        } else {
+            throw new Error('Only tileservers delivering vector tiles are supported');
+        }       
+        // Create TileJSON with default values for remote tile servers
+        // Note: Without accessing the tile server's metadata endpoint,
+        // we use sensible defaults
+        const tileJSON = {
+            tilejson: '2.2.0',
+            tiles: [url],
+            minzoom: 0,
+            maxzoom: 14,
+            bounds: [-180, -85.0511, 180, 85.0511],
+            center: [0, 0, 2],
+            format: format,
+        };
+        
+        // // Optionally, try to fetch TileJSON from the server if it exists
+        // // Many tile servers provide a TileJSON endpoint
+        try {
+            const baseUrl = url.split('/{z}')[0]; // Get base URL before tile template
+            const tileJsonUrl = `${baseUrl}.json`;
+            
+            const response = await fetch(tileJsonUrl);
+            if (response.ok) {
+                const remoteTileJSON = await response.json();
+                logger.debug(`Retrieved TileJSON from ${tileJsonUrl}`);
+                callback(null, { data: Buffer.from(JSON.stringify(remoteTileJSON)) });
+                return;
+            }
+        } catch (fetchErr) {
+            logger.debug(`No TileJSON endpoint found, using defaults: ${fetchErr.message}`);
+        }
+        
+        callback(null, { data: Buffer.from(JSON.stringify(tileJSON)) });
+    } catch (err) {
+        logger.error(`Error creating TileJSON for remote tile server: ${err}`);
+        callback(err);
+    }
+};
+
+/**
  * Fetch a tile from a local mbtiles file.
  *
  * @param {string} tilePath - path containing mbtiles files
@@ -361,13 +426,12 @@ const getRemotePMTilesInstance = async (remoteUrl) => {
  */
 const getRemotePMTile = async (url, callback) => {
     try {
-        // Parse the URL: pmtiles://https://my-bucket.s3.amazonaws.com/map.pmtiles/z/x/y.mvt
         const matches = url.match(/^pmtiles:\/\/(https?:\/\/.+?)\/(\d+)\/(\d+)\/(\d+)/);
         if (!matches) {
             throw new Error(`Invalid PMTiles URL format: ${url}`);
         }
         
-        const remoteUrl = matches[1]; // https://my-bucket.s3.amazonaws.com/map.pmtiles
+        const remoteUrl = matches[1]; 
         const z = Number(matches[2]);
         const x = Number(matches[3]);
         const y = Number(matches[4]);
@@ -521,14 +585,14 @@ const requestHandler =
                         }
                     } else {
                         logger.info("Remote TileJSON")
-                        getRemoteAsset(url, callback);
+                        getRemoteTileJSON(url, callback);
                     }
                     break;
                 }
                 case 3: {
                     // tile
                     if (isMBTilesURL(url)) {
-                        logger.info("Local MBTile tile")
+                        logger.info("Local MBTiles tile")
                         getLocalTile(path.join(dataPath + '/tiles'), url, callback);
                     } else if (isPMTilesURL(url)) {
                         if (isRemotePMTilesURL(url)) {
