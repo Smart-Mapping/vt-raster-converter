@@ -1,12 +1,18 @@
 const path = require('path');
 const fs = require('fs');
 
-const { resolveNamefromURL, resolveMBTilesURL, renderImage } = require('../src/render');
+const { resolveNamefromURL, resolveMBTilesURL, resolvePMTilesURL, renderImage } = require('../src/render');
 const { imageDiff } = require('./util');
 
 describe('resolve mbtiles URL', () => {
     it('should resolve mbtiles file name', () => {
         const sourceUrl = 'mbtiles://filename';
+        const result = resolveNamefromURL(sourceUrl);
+        expect(result).toBe('filename');
+    });
+
+    it('should resolve pmtiles file name', () => {
+        const sourceUrl = 'pmtiles://filename';
         const result = resolveNamefromURL(sourceUrl);
         expect(result).toBe('filename');
     });
@@ -18,6 +24,15 @@ describe('resolve mbtiles URL', () => {
 
         const result = resolveMBTilesURL(tilePath, url);
         expect(result).toBe(tilePath + '/' + filename + '.mbtiles');
+    });
+
+    it('should resolve a pmtiles URL to a file path', () => {
+        const tilePath = '/data/tiles';
+        const filename = 'pmtiles_file';
+        const url = 'pmtiles://' + filename + '/0/0/0.mvt'
+
+        const result = resolvePMTilesURL(tilePath, url);
+        expect(result).toBe(tilePath + '/' + filename + '.pmtiles');
     });
 }); 
 
