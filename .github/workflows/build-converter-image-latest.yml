@@ -47,7 +47,7 @@ jobs:
       - name: Sign image with a key
         run: |
           IMAGE_SHA=$(docker inspect --format='{{index .RepoDigests 0}}' ${{ secrets.IMAGE_NAME_CONVERTER }}:$TAG)
-          cosign sign --key env://COSIGN_PRIVATE_KEY $IMAGE_SHA
+          cosign sign --yes --key env://COSIGN_PRIVATE_KEY $IMAGE_SHA
         env:
           COSIGN_PRIVATE_KEY: ${{secrets.COSIGN_PRIVATE_KEY}}
           COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}          
