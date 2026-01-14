@@ -1,3 +1,8 @@
+## v1.5.6 (2026-01-14)
+
+### Bug fixes
+* Downgrade MapLibre Native to v6.2.0 because errors occur when reading style files
+
 ## v1.5.5 (2026-01-06)
 
 ### Maintenance
