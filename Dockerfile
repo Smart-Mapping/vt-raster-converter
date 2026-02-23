@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 WORKDIR /app
 
@@ -11,17 +11,16 @@ RUN apt-get install -y \
     libc6\
     libcurl4 \
     libgcc-s1 \
-    libgl1-mesa-glx \
     libjpeg8 \
     libjpeg-turbo8 \
     libopengl0 \
     libuv1 \
     x11-utils \
     xvfb \
-    libicu70 \
+    libicu74 \
     libwebp7
 
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && apt-get install -y nodejs  
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && apt-get install -y nodejs  
 
 RUN apt-get remove -y curl krb5-locales gnupg && apt-get autoremove -y
 
