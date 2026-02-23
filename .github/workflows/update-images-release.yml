@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        major-tag: [1.5, 1.5.6, stable]
+        major-tag: [1.5, 1.5.6, 1.6, 1.6.0, stable]
         app: [vt-raster-converter, mapproxy]
         include: 
           - app: mapproxy
@@ -31,7 +31,11 @@ jobs:
           - major-tag: 1.5.6
             minor-tag: 1.5.6                                              
           - major-tag: stable
-            minor-tag: 1.5.6                                                              
+            minor-tag: 1.5.6
+          - major-tag: 1.6
+            minor-tag: 1.6.0
+          - major-tag: 1.6.0
+            minor-tag: 1.6.0                                                                                       
     steps:
       - name: Install Cosign
         uses: sigstore/cosign-installer@main

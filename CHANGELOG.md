@@ -1,3 +1,11 @@
+## v1.6.0 (2026-02-23)
+
+### Maintenance
+* Update MapLibre Native to v6.3.0
+* Update base image for vt raster converter to Ubuntu 24.04
+* Update MapProxy to v5.1.1
+* Dependency updates
+
 ## v1.5.6 (2026-01-14)
 
 ### Bug fixes
