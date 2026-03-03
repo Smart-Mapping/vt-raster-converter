@@ -1,3 +1,8 @@
+## v1.6.1 (2026-03-03)
+
+### Bug fixes
+* Change python version of MapProxy base image to 3.13
+
 ## v1.6.0 (2026-02-23)
 
 ### Maintenance
