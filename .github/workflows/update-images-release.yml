@@ -6,8 +6,8 @@ on:
       - main  
     paths:
       - ".github/workflows/update-images-release.yml"
-  schedule:
-    - cron: '0 23 * * 6'
+  #schedule:
+  #  - cron: '0 23 * * 6'
 
 jobs:    
   build-images:
@@ -50,7 +50,7 @@ jobs:
         run: |
           docker build -t ${{ secrets[matrix.image] }}:${{ matrix.major-tag }} ${{ matrix.context }}
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
         with:
           image-ref: '${{ secrets[matrix.image] }}:${{ matrix.major-tag }}'
           format: 'table'
