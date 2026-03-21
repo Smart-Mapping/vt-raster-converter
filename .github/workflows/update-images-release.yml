@@ -6,8 +6,8 @@ on:
       - main  
     paths:
       - ".github/workflows/update-images-release.yml"
-  #schedule:
-  #  - cron: '0 23 * * 6'
+  schedule:
+    - cron: '0 23 * * 6'
 
 jobs:    
   build-images:
