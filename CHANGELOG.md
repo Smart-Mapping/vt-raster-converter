@@ -1,3 +1,8 @@
+## v1.6.2 (2026-04-22)
+
+### Bug fixes
+* Downgrade MapProxy to v5.0.0 because errors were occuring when seeding tiles
+
 ## v1.6.1 (2026-03-03)
 
 ### Bug fixes

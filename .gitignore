@@ -12,6 +12,8 @@
 /data/tiles/*
 !/data/**/README.md
 /mapproxy/cache_data/
+/data_*
+/mapproxy/config_*
 
 # log files
 /logs
