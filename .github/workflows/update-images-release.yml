@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        major-tag: [1.5, 1.5.6, 1.6, 1.6.2, stable]
+        major-tag: [1.6, 1.6.2, stable]
         app: [vt-raster-converter, mapproxy]
         include: 
           - app: mapproxy
@@ -25,13 +25,9 @@ jobs:
             image: IMAGE_NAME_MAPPROXY
           - app: vt-raster-converter
             context: .
-            image: IMAGE_NAME_CONVERTER
-          - major-tag: 1.5
-            minor-tag: 1.5.6
-          - major-tag: 1.5.6
-            minor-tag: 1.5.6                                              
+            image: IMAGE_NAME_CONVERTER                                          
           - major-tag: stable
-            minor-tag: 1.5.6
+            minor-tag: 1.6.2
           - major-tag: 1.6
             minor-tag: 1.6.2
           - major-tag: 1.6.2
@@ -40,7 +36,7 @@ jobs:
       - name: Install Cosign
         uses: sigstore/cosign-installer@main
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Checkout tag
@@ -59,7 +55,7 @@ jobs:
           vuln-type: 'os,library'
           severity: 'CRITICAL'   
       - name: Login to image registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ secrets.IMAGE_REGISTRY_URL }}
           username: ${{ secrets.IMAGE_REGISTRY_USERNAME }}
