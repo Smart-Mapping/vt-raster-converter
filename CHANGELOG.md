@@ -1,3 +1,9 @@
+## v1.6.4 (2026-06-24)
+
+### Maintenance
+* Update MapLibre Native to v6.4.1
+* Dependency updates
+
 ## v1.6.3 (2026-05-07)
 
 ### Maintenance
