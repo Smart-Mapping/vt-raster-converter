@@ -8,7 +8,7 @@ This software is developed and used for the production of the maps of [basemap.d
 
 ### Prerequisites
 
-You need version 16, 18, 20 or 22 of [Node.js](https://nodejs.org) to run VT Raster Converter locally.
+You need version 22, 24, 26 of [Node.js](https://nodejs.org) to run VT Raster Converter locally.
 
 VT Raster Converter uses the Node.js library of MapLibre GL Native to convert vector tile maps to raster images. The Maplibre GL Native binaries have very specific dependencies, so only very specific operating systems are supported. For more information see [@maplibre/maplibre-gl-native](https://github.com/maplibre/maplibre-native/tree/main/platform/node).
 
