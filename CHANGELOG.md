@@ -1,3 +1,8 @@
+## v1.6.6 (2026-08-21)
+
+### Maintenance
+* Add allowScripts to package.json
+
 ## v1.6.5 (2026-08-05)
 
 ### Maintenance
