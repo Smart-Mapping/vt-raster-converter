@@ -146,10 +146,14 @@ const getLocalAsset = (url, callback) => {
  * @param {function} callback - callback to call with (err, {data})
  */
 const getRemoteTile = async (url, callback) => {
+
     await axios({
         method: 'get',
         url: url,
-        responseType: 'arraybuffer'
+        responseType: 'arraybuffer',
+        validateStatus: function (status) {
+            return status >= 200 && status < 300 || status === 404;
+        }
     }).then(function (response) {
         switch (response.status) {
         case 200: {
