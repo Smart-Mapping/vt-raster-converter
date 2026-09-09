@@ -1,3 +1,8 @@
+## v1.6.7 (2026-09-09)
+
+### Bug fixes
+* Validate the status for 404 errors (missing tiles), when fetching remote tiles
+
 ## v1.6.6 (2026-08-21)
 
 ### Maintenance
