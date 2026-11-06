@@ -1,3 +1,8 @@
+## v1.6.8 (2026-11-06)
+
+### Maintenance
+* Dependency updates
+
 ## v1.6.7 (2026-09-09)
 
 ### Bug fixes
