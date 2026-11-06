@@ -305,4 +305,4 @@ You need to create your vector tiles and styles in the desired coordinate system
 ## License
 MIT License. For more information see [LICENSE.txt](LICENSE.txt).
 
-Copyright 2023-2025 Landesamt für Geoinformation und Landesvermessung Niedersachsen
+Copyright 2023-2026 Landesamt für Geoinformation und Landesvermessung Niedersachsen
